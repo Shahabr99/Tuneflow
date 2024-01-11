@@ -21,9 +21,9 @@ class User {
       password,
       name,
       lastname,
-      email,
+      email
       )
-      VALUES ($1, $2, $3, $4, $5, $6) 
+      VALUES ($1, $2, $3, $4, $5) 
       RETURNING username, name, lastname, email`, 
       [username, hashed_pwd, name, lastname, email]
     )
@@ -81,7 +81,7 @@ class User {
 
   // Gets a user's information from db
   static async get(username) {
-    const result = await db.query(`SELECT username, name, lastname, email FROM users WHERE username = $1`, [username]);
+    const result = await db.query(`SELECT username, name, lastname, email FROM users WHERE username = $1`, [username.username]);
     const user = result.rows[0];
     if(!user) throw new NotFoundError("No user found!");
     console.log(`$user}`)
