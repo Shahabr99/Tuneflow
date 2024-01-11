@@ -5,10 +5,11 @@ const jsonSchema = require("jsonschema");
 const userSchema = require("../schemas/newUser.json");
 const { BadRequestError } = require("../expressError");
 const {createToken} = require("../helpers/tokens");
-const loginSchema = require("../schemas/login.json")
+const loginSchema = require("../schemas/login.json");
+const { authenticateJWT } = require("../middlewares/auth");
 
 
-router.post("/login", async function(req, res, next) {
+router.post("/login", authenticateJWT, async function(req, res, next) {
   try {
     // console.log(req.body)
     const validator = jsonSchema.validate(req.body, loginSchema);
