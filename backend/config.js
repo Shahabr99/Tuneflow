@@ -10,8 +10,7 @@ function getDatabase() {
 }
 
 const BCRYPT_WORK_FACTOR = process.env.NODE_ENV === "test" ? 1 : 12;
-const key = process.env.KEY;
-const client = process.env.SECRET_CLIENT
 
 
-module.exports = {SECRET_KEY, PORT, getDatabase, BCRYPT_WORK_FACTOR, key, client}
+
+module.exports = {SECRET_KEY, PORT, getDatabase, BCRYPT_WORK_FACTOR}

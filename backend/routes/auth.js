@@ -23,7 +23,7 @@ router.post("/login", async function(req, res, next) {
   }catch(err){
     return next(err)
   }
-})
+});
 
 
 
