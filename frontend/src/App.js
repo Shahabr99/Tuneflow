@@ -25,12 +25,12 @@ function App() {
       if(token) {
         try {
           const {username} = jwt.decode(token);
-          console.log(`${username}`);
+         
 
           // Set the token in our API to make requests
           tuneflowApi.token = token;
           let currentUser = await tuneflowApi.getCurrentUser(username);
-
+          console.log(currentUser);
           setCurrentUser(currentUser);
 
         }catch(err) {
