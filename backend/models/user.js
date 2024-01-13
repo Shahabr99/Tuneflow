@@ -84,7 +84,7 @@ class User {
     const result = await db.query(`SELECT username, name, lastname, email FROM users WHERE username = $1`, [username]);
     const user = result.rows[0];
     if(!user) throw new NotFoundError("No user found!");
-    console.log(`$user}`)
+    console.log(`${user}`)
     return user
   }
 

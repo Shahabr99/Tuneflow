@@ -14,6 +14,7 @@ class tuneflowApi {
     const params = (method === "get") ? data : {};
 
     try {
+      console.log(headers)
       return (await axios({url, method, data, params, headers})).data;
     }catch(err) {
       console.error("API Error:", err.message)

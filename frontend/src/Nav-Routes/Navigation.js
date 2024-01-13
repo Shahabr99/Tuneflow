@@ -11,6 +11,11 @@ function Navigation(logout) {
     return (
       <ul>
         <li>
+          <NavLink to="/songs">
+            Tracks
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/playlists">
             Playlists
           </NavLink>

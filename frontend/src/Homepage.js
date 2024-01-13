@@ -1,17 +1,8 @@
-import React,{useEffect, useState} from "react";
-import axios from "axios";
+import React from "react";
+
 import "./Homepage.css";
 
 function Homepage() {
-  const [artists, setArtists] = useState([])
-
-  useEffect(function fetchData() {
-    async function getArtists() {
-      const res = await axios.get(`https://api.jamendo.com/v3.0/artists/?client_id=c85b065b&format=jsonpretty&limit=10`);
-      setArtists(res.data.results)
-    }
-    getArtists()
-  },[])
 
 
   return (
@@ -28,12 +19,6 @@ function Homepage() {
         </div>
         <div className="header-img"></div>
       </header>
-
-      {artists.map(artist => 
-        <div key={artist.id} className="artist-box" >
-          <div style={{backgroundImage: `url(${artist.image})`}} className="artist"></div>
-        </div>  
-      )}
     
     </>
   )
