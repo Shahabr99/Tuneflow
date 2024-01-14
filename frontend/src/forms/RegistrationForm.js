@@ -30,7 +30,7 @@ function RegistrationForm() {
     e.preventDefault();
     const result = await signup(formData);
     if(result.success) {
-      navigate("/")
+      navigate("/tracks")
     }else{
       setFormErrors(result.errors)
     }

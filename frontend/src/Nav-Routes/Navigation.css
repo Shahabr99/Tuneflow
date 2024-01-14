@@ -1,10 +1,35 @@
 .navbar {
- 
+ background-color: #000;
+ display: flex;
+ justify-content: space-between;
+ padding: 12px;
+}
+
+ul {
+  display: flex;
+  gap: 18px;
+}
+
+ul li a{
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 12px;
+  color: #eee;
+  letter-spacing: 4px;
+}
+
+ul li a:hover {
+  color: salmon;
 }
 
 
 .logo {
   color: #eee;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 5px;
+  margin-top: 16px;
+  text-align: center;
+  text-transform: uppercase;
 }

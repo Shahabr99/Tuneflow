@@ -1,6 +1,7 @@
 import {Link, NavLink} from "react-router-dom";
 import React, {useContext} from 'react';
 import DataContext from "../helpers/DataContext";
+import "./Navigation.css";
 
 
 function Navigation(logout) {
@@ -11,7 +12,7 @@ function Navigation(logout) {
     return (
       <ul>
         <li>
-          <NavLink to="/songs">
+          <NavLink to="/tracks">
             Tracks
           </NavLink>
         </li>

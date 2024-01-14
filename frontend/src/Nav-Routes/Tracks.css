@@ -1,0 +1,37 @@
+.tracks-container {
+  width: 90%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 16px;
+  border: 1px solid #000;
+  padding: 36px;
+}
+
+.card {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+}
+
+.track-card:hover {
+  cursor: pointer;
+}
+
+.track-img {
+  width: 300px;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+}
+
+.lower-box {
+  padding: 6px;
+}
+
+.artist-name {
+  font-size: 12px;
+}

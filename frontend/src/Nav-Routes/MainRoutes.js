@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginForm from "../forms/LoginForm";
 import RegistrationForm from '../forms/RegistrationForm';
 import Homepage from '../Homepage';
-import Songs from "./Songs"
+import Tracks from "./Tracks";
 
 function MainRoutes() {
 
@@ -19,7 +19,7 @@ function MainRoutes() {
           
         <Route exact path="/register" element={<RegistrationForm />} />
 
-        <Route exact path="/songs" element={<Songs />}  />
+        <Route exact path="/tracks" element={<Tracks />}  />
 
         <Route path="*" element={<Navigate to="/" />} />
           

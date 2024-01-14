@@ -6,9 +6,8 @@ function Homepage() {
 
 
   return (
-    <>
-      <header>
-        <div>
+      <main>
+        <div className="header-section">
             <h1>Welcome to Tuneflow!</h1>
             <p>
               Welcome to Tuneflow, your gateway to a global symphony of sounds and melodies.<br />
@@ -18,9 +17,7 @@ function Homepage() {
             </p>
         </div>
         <div className="header-img"></div>
-      </header>
-    
-    </>
+      </main>
   )
 }
 

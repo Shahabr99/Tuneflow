@@ -16,7 +16,7 @@ function LoginForm() {
     e.preventDefault();
     const result = await login(formData);
     if(result.sucess) {
-      navigate("/songs")
+      navigate("/tracks")
     }else{
       navigate("/")
     }
