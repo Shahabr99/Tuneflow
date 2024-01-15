@@ -10,10 +10,11 @@ function Tracks() {
   useEffect(function getData() {
     async function getSongs() {
       try{
-        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=12&imagesize=300&boost=downloads_month`);
-        const artistsData = await axios.get(`https://api.jamendo.com/v3.0/artists/?client_id=c85b065b&format=jsonpretty&limit=12&hasimage=true`);
+        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=10&imagesize=300&boost=downloads_month`);
+        const artistsData = await axios.get(`https://api.jamendo.com/v3.0/artists/?client_id=c85b065b&format=jsonpretty&limit=20&hasimage=true`);
         setSongs(tracksData.data.results);
-        setArtists(artistsData.data.results)
+        setArtists(artistsData.data.results);
+        console.log(artistsData.data.results)
       }catch(err) {
         throw err
       }
@@ -24,10 +25,10 @@ function Tracks() {
 
   return(
     <>
-      <div className="tracks-container">
+      <div className="container">
         {songs.map(song => (
-          <Link >
-            <div key={song.id} className="card">
+          <Link key={song.id} to={`/tracks/:${song.id}`}>
+            <div  className="card">
               <div style={{backgroundImage: `url(${song.image})`}} className="track-img"></div>
               <div className="lower-box">
                 <h5>Title: {song.name}</h5>
@@ -38,14 +39,13 @@ function Tracks() {
           ))}
       </div>
 
-      <div className="artists-container">
+      <div className="container">
         {artists.map(artist => (
-          <Link >
-            <div key={artist.id} className="card">
+          <Link key={artist.id} to={`/artist/${artist.id}`}>
+            <div  className="card">
               <div style={{backgroundImage: `url(${artist.image})`}} className="artist-img"></div>
               <div className="lower-box">
                 <h5>Title: {artist.name}</h5>
-                <span className="artist-name">Artist: {artist.artist_name}</span>
               </div>
             </div>
           </Link>

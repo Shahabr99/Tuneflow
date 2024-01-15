@@ -1,4 +1,4 @@
-.tracks-container {
+.container {
   width: 90%;
   margin: 50px auto;
   display: flex;
@@ -11,7 +11,7 @@
 
 .card {
   width: 300px;
-  height: 400px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   border: 1px solid #000;
@@ -23,14 +23,22 @@
 
 .track-img {
   width: 300px;
-  height: 260px;
+  height: 280px;
   background-size: cover;
   background-position: center;
+  letter-spacing: 5px;
 }
 
 .lower-box {
-  padding: 6px;
+  padding: 12px;
+  background-color: #080707;
 }
+
+.lower-box h5, .lower-box span {
+  text-decoration: none;
+  color: #eee;
+}
+
 
 .artist-name {
   font-size: 12px;
