@@ -1,13 +1,16 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, {useContext} from 'react';
+import { Routes, Route } from 'react-router-dom';
 import LoginForm from "../forms/LoginForm";
 import RegistrationForm from '../forms/RegistrationForm';
-import Homepage from '../Homepage';
+import Homepage from './Homepage';
 import Tracks from "./Tracks";
+import IDContext from "./IDContext";
+import PlayTrack from "./PlayTrack";
 
 function MainRoutes() {
 
-
+  const trackID = useContext(IDContext)
+  console.log(trackID)
 
   return (
     <div>
@@ -21,7 +24,9 @@ function MainRoutes() {
 
         <Route exact path="/tracks" element={<Tracks />}  />
 
-        <Route path="*" element={<Navigate to="/" />} />
+        <Route  path={`/tracks/${trackID}`} element={<PlayTrack trackID={trackID} />} />
+
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
           
       </Routes>
     </div>
