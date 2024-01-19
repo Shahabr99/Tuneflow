@@ -7,6 +7,7 @@ import Navigation from "./Nav-Routes/Navigation";
 import MainRoutes from "./Nav-Routes/MainRoutes";
 import DataContext from "./helpers/DataContext";
 import LoadingSpinner from "./common/LoadingSpinner";
+import axios from "axios";
 
 
 
@@ -17,6 +18,8 @@ function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
   const [token, setToken] = useLocalStorage(TOKEN_ID)
   const [currentUser, setCurrentUser] = useState(null);
+  const [tracks, setTracks] = useState([]);
+  
 
 
   useEffect(function loadUserInfo() {
@@ -44,6 +47,19 @@ function App() {
     getCurrentUser()
   }, [token]);
 
+
+  useEffect(function getData() {
+    async function getSongs() {
+      try{
+        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=12&imagesize=300&boost=downloads_month`);
+        setTracks(tracksData.data.results);
+        console.log(tracksData.data.results)
+      }catch(err) {
+        console.error("Error fetching data:", err)
+      }
+    }
+    getSongs();
+  },[]);
 
 
   // Handles logging out 
@@ -83,7 +99,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <DataContext.Provider value={{currentUser, login, signup, logout}}>
+        <DataContext.Provider value={{currentUser, login, signup, logout, tracks}}>
         
           <Navigation logout={logout} />
           <MainRoutes  />
