@@ -14,10 +14,11 @@ class Playlist {
 
 
   // Adding track to a plylist using association table
-  static async addTracks(data, name) {
-    const result = await db.query(`INSERT INTO playlists_tracks (track_id, playlist_name) VALUES ($1, $2)`, [data.id, name]);
-    if(!result) throw new BadRequestError(`Could not add track to ${name} playlist`);
-    return result.rows;
+  static async addTracks(username, playlistName, track) {
+    const newTrack = db.query(`INSERT INTO tracks (id, title, image_url, playlist_name) VALUES ($1, $2, $3, $4) RETURNING title, image_url, playlist_name`, [track.id, track.name, track.image, playlistName])  
+    const result = await db.query(`INSERT INTO playlists_tracks (track_id, playlist_name) VALUES ($1, $2)`, [track.id, playlistName]);
+    if(!result) throw new BadRequestError(`Could not add track to ${playlistName} playlist`);
+    return newTrack.rows[0];
   }
 
 

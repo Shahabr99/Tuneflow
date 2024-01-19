@@ -29,6 +29,11 @@ class tuneflowApi {
     return res.user;
   }
 
+  static async addPlaylist(playlistName, username) {
+    const res = await this.request(`${username}/playlistName`);
+    return res.
+  }
+
 
   static async getPlaylists(username) {
     const res = await this.request(`playlists/${username}`);
