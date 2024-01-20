@@ -29,18 +29,26 @@ class tuneflowApi {
     return res.user;
   }
 
-  static async addPlaylist(playlistName, username) {
-    const res = await this.request(`${username}/playlistName`);
-    return res.
+  // create new playlist 
+  static async addPlaylist(username, data) {
+    const res = await this.request(`${username}/playlists/addPlaylist`, data, "post");
+    return res.playlist;
+  }
+
+
+  // add tracks to playlist
+  static async addTracks(username, playlistName, data) {
+    const res = await this.request(`${username}/${playlistName}/addTrack`, data, "post");
+    return res.track;
   }
 
 
   static async getPlaylists(username) {
-    const res = await this.request(`playlists/${username}`);
+    const res = await this.request(`${username}/playlists`);
     return res.playlists;
   }
 
-
+// Getting tracks of a playlist
   static async getTracks(playlist) {
     const res = await this.request(`playlists/${playlist}/tracks`);
     return res.tracks;
