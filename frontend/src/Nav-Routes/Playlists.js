@@ -1,16 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import DataContext from '../helpers/DataContext';
 
 
 function Playlists() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { addPlaylist, requestPlaylists } = useContext(DataContext)
   const [playlists, setPlaylists] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
   const [formData, setFormData] = useState({
     playlistName: "",
     image: ""
   });
+
+
+  useEffect(function getAllPlaylists() {
+    async function getData() {
+      const playlists = await requestPlaylists();
+      console.log(playlists);
+      setPlaylists([...playlists])
+    }
+    getData()
+  })
+
   
 
   function showForm() {
@@ -30,9 +42,10 @@ function Playlists() {
     navigate("/");
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setPlaylists(playlists.push(formData));
+    const newPlaylist = await addPlaylist(formData)
+    setPlaylists(playlists.push(newPlaylist));
     setIsRendered(false);
     navigate("/playlists");
   }

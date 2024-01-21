@@ -96,7 +96,41 @@ function App() {
 
   async function addPlaylist(playlistData) {
     try {
-      
+      const playlist = await tuneflowApi.addPlaylist(playlistData);
+      if(playlist) return {success: true};
+    }catch(err){
+      return {success: false};
+    }
+  };
+
+
+
+  async function requestPlaylists() {
+    try{
+      const playlists = await tuneflowApi.getPlaylists(currentUser);
+      if(playlists) return {success:true}
+    }catch(err){
+      return {success: false}
+    }
+  };
+
+
+  async function sendTracks(playlistName) {
+    try {
+      const track = await tuneflowApi.getTracks(playlistName);
+      if(track) return {success: true}
+    }catch(err){
+      return {success: false}
+    }
+  };
+
+
+  async function requestTracks(playlistName) {
+    try {
+      const tracks = await tuneflowApi.getTracks(playlistName);
+      if(tracks) return {success: true}
+    }catch(err){
+      return {success: false}
     }
   }
 
@@ -106,11 +140,11 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <DataContext.Provider value={{currentUser, login, signup, logout, tracks}}>
+        <DataContext.Provider value={{currentUser, login, signup, logout, tracks, addPlaylist, requestPlaylists, sendTracks, requestTracks}}>
         
           <Navigation logout={logout} />
           <MainRoutes  />
-        
+          
         </DataContext.Provider>
       </BrowserRouter>
     </div>
