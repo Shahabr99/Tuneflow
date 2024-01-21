@@ -14,20 +14,20 @@ function Playlists() {
   });
 
 
-  useEffect(function getAllPlaylists() {
+  useEffect(() => {
     async function getData() {
       const playlists = await requestPlaylists();
       console.log(playlists);
-      setPlaylists([...playlists])
+      playlists.length === 0 ? console.log("No playlists!") : setPlaylists([...playlists])
     }
     getData()
-  })
+  }, [requestPlaylists]);
 
-  
 
   function showForm() {
     setIsRendered(true);
   }
+
 
   function handleChange(e) {
     const {name, value} = e.target;
@@ -37,6 +37,7 @@ function Playlists() {
     })
   )};
 
+
   function handleCancel() {
     setIsRendered(false);
     navigate("/");
@@ -45,7 +46,7 @@ function Playlists() {
   async function handleSubmit(e) {
     e.preventDefault();
     const newPlaylist = await addPlaylist(formData)
-    setPlaylists(playlists.push(newPlaylist));
+    setPlaylists([...playlists, newPlaylist]);
     setIsRendered(false);
     navigate("/playlists");
   }
@@ -55,7 +56,17 @@ function Playlists() {
   return (
     <div>
       <div className="container">
-        <button onClick={showForm}>New Playlist</button>
+        {isRendered ? "": <button onClick={showForm}>New Playlist</button>}
+        {playlists.length === 0 ? "Please create new playlist" : (
+          playlists.map(p => (
+          <div key={p.id} className="playlist-card">
+            <div className="playlist-img" style={{backgroundImage:`url(${p.image})`}}></div>
+            <div>
+              <h4>{`${p.name}`}</h4>
+            </div>
+          </div>
+          ))
+        )};
         {isRendered ? <div className="playlist-form">
           <form>
             <div>
@@ -67,19 +78,11 @@ function Playlists() {
               <input type="text" id="image-url" name="image" value={formData.image} onChange={handleChange} />
             </div>
             <div>
-              <button onCLick={handleSubmit}>Submit</button>
+              <button onClick={handleSubmit}>Submit</button>
               <button onClick={handleCancel}>Cancel</button>
             </div>
           </form>
         </div> : ""}
-        { playlists.map(playlist => (
-          <div className="playlist-card">
-            <div className="playlist-img"></div>
-            <div>
-              <h4>`${playlist.name}`</h4>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   )

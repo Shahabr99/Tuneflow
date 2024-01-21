@@ -14,7 +14,6 @@ class tuneflowApi {
     const params = (method === "get") ? data : {};
 
     try {
-      console.log(headers)
       return (await axios({url, method, data, params, headers})).data;
     }catch(err) {
       console.error("API Error:", err.message)
@@ -31,26 +30,28 @@ class tuneflowApi {
 
   // create new playlist 
   static async addPlaylist(username, data) {
-    const res = await this.request(`${username}/playlists/addPlaylist`, data, "post");
+    const res = await this.request(`playlists/${username}/addPlaylist`, data, "post");
     return res.playlist;
   }
 
 
   // add tracks to playlist
   static async addTracks(username, playlistName, data) {
-    const res = await this.request(`${username}/${playlistName}/addTrack`, data, "post");
+    const res = await this.request(`playlists/${username}/${playlistName}/addTrack`, data, "post");
     return res.track;
   }
 
 
   static async getPlaylists(username) {
-    const res = await this.request(`${username}/playlists`);
+    console.log(username)
+    const res = await this.request(`playlists/${username}`);
+    console.log(res)
     return res.playlists;
   }
 
 // Getting tracks of a playlist
-  static async getTracks(playlist) {
-    const res = await this.request(`playlists/${playlist}/tracks`);
+  static async getTracks(playlistName) {
+    const res = await this.request(`playlists/${playlistName}/tracks`);
     return res.tracks;
   }
 

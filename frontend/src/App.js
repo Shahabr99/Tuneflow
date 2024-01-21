@@ -33,7 +33,7 @@ function App() {
           // Set the token in our API to make requests
           tuneflowApi.token = token;
           let currentUser = await tuneflowApi.getCurrentUser(username);
-          console.log(currentUser);
+          
           setCurrentUser(currentUser);
 
         }catch(err) {
@@ -53,7 +53,7 @@ function App() {
       try{
         const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=12&imagesize=300&boost=downloads_month`);
         setTracks(tracksData.data.results);
-        console.log(tracksData.data.results)
+        
       }catch(err) {
         console.error("Error fetching data:", err)
       }
@@ -96,7 +96,7 @@ function App() {
 
   async function addPlaylist(playlistData) {
     try {
-      const playlist = await tuneflowApi.addPlaylist(playlistData);
+      const playlist = await tuneflowApi.addPlaylist(currentUser.username, playlistData);
       if(playlist) return {success: true};
     }catch(err){
       return {success: false};
@@ -107,8 +107,8 @@ function App() {
 
   async function requestPlaylists() {
     try{
-      const playlists = await tuneflowApi.getPlaylists(currentUser);
-      if(playlists) return {success:true}
+      const playlists = await tuneflowApi.getPlaylists(currentUser.username);
+      return playlists;
     }catch(err){
       return {success: false}
     }

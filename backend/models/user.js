@@ -37,7 +37,7 @@ class User {
   static async authenticate(username, password) {
     const result = await db.query(`SELECT username, password, name, lastname FROM users WHERE username = $1`, [username]);
     const user = result.rows[0];
-    console.log(`DATABASE found ${user}`)
+    console.log(`DATABASE found ${user}`);
     if(!user) {
       throw new NotFoundError(`username ${data.username} does NOT exist!`)
     }
@@ -73,7 +73,7 @@ class User {
 
   // deletes a user from db
   static async remove(username) {
-    let result = db.query(`DELETE FROM users WHERE username = $1 RETURNING username`, [username]);
+    let result = await db.query(`DELETE FROM users WHERE username = $1 RETURNING username`, [username]);
 
     const user = result.user[0];
     if(!user) throw new NotFoundError(`No user: ${username}`)
@@ -84,19 +84,21 @@ class User {
     const result = await db.query(`SELECT username, name, lastname, email FROM users WHERE username = $1`, [username]);
     const user = result.rows[0];
     if(!user) throw new NotFoundError("No user found!");
-    console.log(`${user}`)
     return user
   }
 
   // Fetches the playlists of a user
   static async getUserPlaylists(username) {
-    const result = await db.query(`SELECT name, image FROM playlists WHERE username_playlist == $1`, [username]);
+    console.log(username)
+    const result = await db.query(`SELECT id, name, image FROM playlists WHERE username_playlist = $1`, [username]);
+    console.log(`Databse sent back ${result}`);
+    if(!result.rows.length) {
+      console.log("No playlist in database")
+    }
     const playlists = result.rows;
     if(!playlists) throw new NotFoundError("No playlists found");
     return playlists;
   }
-
-  
 }
 
 module.exports = User;

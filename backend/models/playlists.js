@@ -7,8 +7,9 @@ class Playlist {
 
   // Creates and adds a playlist to db
   static async createUserPlaylist(playlistName, image,  username) {
-      const res = await db.query('INSERT INTO playlists (name, image, username_playlist) VALUES ($1, $2, $3) RETURNING name, image', [playlistName, image, username]);
-      if(!res) throw new NotFoundError();
+    console.log(playlistName, image, username)
+      const res = await db.query('INSERT INTO playlists (name, image, username_playlist) VALUES ($1, $2, $3) RETURNING id, name, image', [playlistName, image, username]);
+      if(!res.rows.length) throw new NotFoundError();
       return res.rows[0]
   }
 
@@ -28,8 +29,8 @@ class Playlist {
     JOIN playlist_tracks ON tracks.id = playlists_tracks.track_id 
     JOIN playlists ON playlists.name = playlists_tracks.playlist_name
     WHERE playlists.name = $1`, [playlistName]);
-    if(!result) throw new NotFoundError(`No tracks found`);
-    return result.rows[0]
+    if(!result.rows.length) throw new NotFoundError(`No tracks found`);
+    return result.rows;
   }
 }
 
