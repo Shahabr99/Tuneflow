@@ -56,7 +56,7 @@ function Playlists() {
   return (
     <div>
       <div className="container">
-        {isRendered ? "": <button onClick={showForm}>New Playlist</button>}
+        {isRendered ? "" : <button onClick={showForm}>New Playlist</button>}
         {playlists.length === 0 ? "Please create new playlist" : (
           playlists.map(p => (
           <div key={p.id} className="playlist-card">
@@ -66,7 +66,7 @@ function Playlists() {
             </div>
           </div>
           ))
-        )};
+        )}
         {isRendered ? <div className="playlist-form">
           <form>
             <div>
