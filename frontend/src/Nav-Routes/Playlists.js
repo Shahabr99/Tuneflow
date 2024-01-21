@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../helpers/DataContext';
+import "./Playlists.css";
 
 
 function Playlists() {
@@ -55,8 +56,8 @@ function Playlists() {
 
   return (
     <div>
-      <div className="container">
-        {isRendered ? "" : <button onClick={showForm}>New Playlist</button>}
+      <div className="playlist-container">
+        {isRendered ? "" : <button className='playlist-btn' onClick={showForm}>New Playlist</button>}
         {playlists.length === 0 ? "Please create new playlist" : (
           playlists.map(p => (
           <div key={p.id} className="playlist-card">
