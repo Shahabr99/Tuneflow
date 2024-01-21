@@ -90,7 +90,7 @@ class User {
 
   // Fetches the playlists of a user
   static async getUserPlaylists(username) {
-    const result = await db.query(`SELECT name FROM playlists WHERE username_playlist == $1`, [username]);
+    const result = await db.query(`SELECT name, image FROM playlists WHERE username_playlist == $1`, [username]);
     const playlists = result.rows;
     if(!playlists) throw new NotFoundError("No playlists found");
     return playlists;

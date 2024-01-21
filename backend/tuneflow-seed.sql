@@ -5,5 +5,5 @@ INSERT INTO users
 
 
 INSERT INTO playlists 
-(name, username_playlist) 
+(name, image, username_playlist) 
 VALUES ('testPlaylist', 'tester');

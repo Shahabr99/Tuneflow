@@ -94,6 +94,13 @@ function App() {
   }
 
 
+  async function addPlaylist(playlistData) {
+    try {
+      
+    }
+  }
+
+
   if(!infoLoaded) return <LoadingSpinner />
 
   return (

@@ -5,6 +5,9 @@ import RegistrationForm from '../forms/RegistrationForm';
 import Homepage from './Homepage';
 import Tracks from "./Tracks";
 import PlayTrack from "./PlayTrack";
+import Playlists from "./Playlists";
+
+
 
 function MainRoutes() {
 
@@ -20,7 +23,9 @@ function MainRoutes() {
 
         <Route exact path="/tracks" element={<Tracks />}  />
 
-        <Route  path={`/tracks/:trackID`} element={<PlayTrack />} />
+        <Route path={`/tracks/:trackID`} element={<PlayTrack />} />
+
+        <Route path="/playlists" element={<Playlists />} />
 
         <Route path="*" element={<Navigate to="/" />} />
           

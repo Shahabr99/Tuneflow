@@ -5,7 +5,7 @@ const User = require("../models/user");
 const Playlist = require("../models/playlists");
 
 
-
+// 
 router.get("/:username/playlists", ensureLoggedIn, async function(req, res, next) {
   try {
     const playlists = await User.getUserPlaylists(req.params);
@@ -15,13 +15,14 @@ router.get("/:username/playlists", ensureLoggedIn, async function(req, res, next
   }
 });
 
+
 // makes a request to the database to get all tracks of a specific playlist.
 router.get("playlists/:playlist/tracks", ensureLoggedIn, async function(req, res, next) {
   try {
     const tracks = await Playlist.getPlaylistTracks(req.body);
-    return res.json({tracks})
+    return res.json({tracks});
   } catch(err) {
-    return next(err)
+    return next(err);
   }
 });
 
@@ -30,11 +31,11 @@ router.get("playlists/:playlist/tracks", ensureLoggedIn, async function(req, res
 router.post("/:username/playlists/addTrack", ensureLoggedIn, async function(req, res, next) {
   try {
     const { username } = req.params;
-    const { playlistName } = req.body;
-    const newPlaylist = await Playlist.createUserPlaylist(playlistName, username);
-    return res.json({ newPlaylist })
+    const { playlistName, image } = req.body;
+    const newPlaylist = await Playlist.createUserPlaylist(playlistName, image, username);
+    return res.json({ newPlaylist });
   }catch(err) {
-    return next(err)
+    return next(err);
   }
 })
 
@@ -45,9 +46,9 @@ router.post("/:username/:playlist/addTrack", ensureLoggedIn, async function(req,
     const { username, playlist } = req.params;
     const { track } = req.body;
     const addedTrack = await Playlist.addTracks(username, playlist, track);
-    return res.json({addedTrack})
+    return res.json({addedTrack});
   }catch(error){
-    return next(error)
+    return next(error);
   }
 })
 

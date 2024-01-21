@@ -6,8 +6,8 @@ const {NotFoundError, BadRequestError} = require("../expressError")
 class Playlist {
 
   // Creates and adds a playlist to db
-  static async createUserPlaylist(playlistName,  username) {
-      const res = await db.query('INSERT INTO playlists (name, username_playlist) VALUES ($1, $2)', [playlistName, username]);
+  static async createUserPlaylist(playlistName, image,  username) {
+      const res = await db.query('INSERT INTO playlists (name, image, username_playlist) VALUES ($1, $2, $3) RETURNING name, image', [playlistName, image, username]);
       if(!res) throw new NotFoundError();
       return res.rows[0]
   }
