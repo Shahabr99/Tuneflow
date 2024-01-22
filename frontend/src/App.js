@@ -68,7 +68,7 @@ function App() {
     setToken(null)
   }
 
-  // 
+  // Handles registration of a user.
   async function signup(signupData) {
     try {
       let token = await tuneflowApi.signup(signupData);
@@ -114,6 +114,26 @@ function App() {
     }
   };
 
+// Handles removing a playlist from db
+  async function deletePlaylist(data) {
+    try {
+      const result = await tuneflowApi.removePlaylist(data);
+      console.log(result);
+      return {success: true}
+    }catch(err){
+      return {success: false}
+    }
+  }
+
+
+  // async function editPlaylist() {
+  //   try {
+  //     const newPlaylist = 
+  //   }catch(err) {
+  //     return {success: false}
+  //   }
+  // }
+
 
   async function sendTracks(playlistName) {
     try {
@@ -140,7 +160,18 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <DataContext.Provider value={{currentUser, login, signup, logout, tracks, addPlaylist, requestPlaylists, sendTracks, requestTracks}}>
+        <DataContext.Provider value={{
+          currentUser,
+           login,
+            signup,
+             logout,
+              tracks,
+               addPlaylist,
+                requestPlaylists,
+                 sendTracks,
+                  requestTracks,
+                   deletePlaylist,
+          }}>
         
           <Navigation logout={logout} />
           <MainRoutes  />

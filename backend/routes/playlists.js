@@ -56,4 +56,16 @@ router.post("/:username/:playlist/addTrack", ensureLoggedIn, async function(req,
 })
 
 
+// Route to delete a playlist
+router.delete("/removePlaylist", ensureLoggedIn, async function(req, res, next) {
+  try{
+    const {name} = req.body;
+    const playlist = await Playlist.removePlaylist(name);
+    return res.json({playlist})
+  }catch(err){
+    return next(err)
+  }
+})
+
+
 module.exports = router;

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../helpers/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import "./Playlists.css";
 
 function Playlists() {
   const navigate = useNavigate();
-  const { addPlaylist, requestPlaylists } = useContext(DataContext)
+  const { addPlaylist, requestPlaylists, deletePlaylist } = useContext(DataContext)
   const [playlists, setPlaylists] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
   const [formData, setFormData] = useState({
@@ -45,6 +45,32 @@ function Playlists() {
     navigate("/playlists");
   }
 
+
+  async function deleteCard(id) {
+    try {
+      const data = playlists.find(p => p.id === id);
+      const result = await deletePlaylist(data);
+      if(result) {
+        setPlaylists(playlists.filter(p => p.id !== id))
+      }
+    }catch(err){
+      return err
+    }
+  }
+
+  // async function editCard(id) {
+  //   try {
+  //     const data = playlists.find(p => p.id === id);
+  //     const result = await editPlaylist(data);
+  //     if(result){
+  //       setPlaylists(playlists.push(result))
+  //     }
+  //   }catch(err){
+  //     return err
+  //   }
+  // }
+
+
   async function handleSubmit(e) {
     e.preventDefault();
     if(formData.playlistName.length === 0 || formData.image.length === 0) return;
@@ -64,8 +90,8 @@ function Playlists() {
             playlists.map(p => (
             <div key={p.id} className="playlist-card">
               <div className='icon-box'>
-                <div className='trash'><FontAwesomeIcon icon={faTrash} /></div>
-                <div className='edit'><FontAwesomeIcon icon={faPen} /></div>
+                <div className='trash' onClick={() => deleteCard(p.id)}><FontAwesomeIcon icon={faTrash} /></div>
+                <div className='edit'  ><FontAwesomeIcon icon={faPen} /></div>
               </div>
               <div className="playlist-img" style={{backgroundImage:`url(${p.image})`}}></div>
               <div>

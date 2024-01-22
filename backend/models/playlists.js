@@ -32,6 +32,13 @@ class Playlist {
     if(!result.rows.length) throw new NotFoundError(`No tracks found`);
     return result.rows;
   }
+
+// Removing a playlist from db
+  static async removePlaylist(name) {
+    const result = await db.query(`DELETE FROM playlists WHERE name = $1 RETURNING id, name, image`, [name]);
+    if(!result.rows.length) throw new NotFoundError(`No playlist found`);
+    return result.rows[0];
+  }
 }
 
 

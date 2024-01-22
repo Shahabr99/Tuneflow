@@ -35,6 +35,12 @@ class tuneflowApi {
   }
 
 
+  static async removePlaylist(data) {
+    const res = await this.request(`playlists/removePlaylist`, data, "delete");
+    return res.playlist;
+  }
+
+
   // add tracks to playlist
   static async addTracks(username, playlistName, data) {
     const res = await this.request(`playlists/${username}/${playlistName}/addTrack`, data, "post");
@@ -48,6 +54,7 @@ class tuneflowApi {
     console.log(res)
     return res.playlists;
   }
+
 
 // Getting tracks of a playlist
   static async getTracks(playlistName) {

@@ -25,7 +25,7 @@ function MainRoutes() {
 
         <Route path={`/tracks/:trackID`} element={<PlayTrack />} />
 
-        <Route path="/playlists" element={<Playlists />} />
+        <Route path="/playlists"  element={<Playlists />}/>
 
         <Route path="*" element={<Navigate to="/" />} />
           
