@@ -6,8 +6,6 @@ import DataContext from "../helpers/DataContext";
 
 
 function Tracks() {
-  // const [artists, setArtists] = useState([]);
-  // const [isHovered, setIsHovered] = useState(false)
   const navigate = useNavigate();
   const {tracks} = useContext(DataContext);
 

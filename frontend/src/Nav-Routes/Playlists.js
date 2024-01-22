@@ -1,6 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import DataContext from '../helpers/DataContext';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'; 
 import "./Playlists.css";
 
 
@@ -18,7 +20,6 @@ function Playlists() {
   useEffect(() => {
     async function getData() {
       const playlists = await requestPlaylists();
-      console.log(playlists);
       playlists.length === 0 ? console.log("No playlists!") : setPlaylists([...playlists])
     }
     getData()
@@ -41,51 +42,58 @@ function Playlists() {
 
   function handleCancel() {
     setIsRendered(false);
-    navigate("/");
+    navigate("/playlists");
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if(formData.playlistName.length === 0 || formData.image.length === 0) return;
+    
     const newPlaylist = await addPlaylist(formData)
     setPlaylists([...playlists, newPlaylist]);
     setIsRendered(false);
     navigate("/playlists");
   }
 
-
-
   return (
-    <div>
-      <div className="playlist-container">
-        {isRendered ? "" : <button className='playlist-btn' onClick={showForm}>New Playlist</button>}
-        {playlists.length === 0 ? "Please create new playlist" : (
-          playlists.map(p => (
-          <div key={p.id} className="playlist-card">
-            <div className="playlist-img" style={{backgroundImage:`url(${p.image})`}}></div>
-            <div>
-              <h4>{`${p.name}`}</h4>
+      <div className="main-playlist">
+        <div className="playlist-container">
+          {isRendered ? "" : <div className='playlist-btn' onClick={showForm}><FontAwesomeIcon icon={faPlus} size='2x' /></div>}
+
+          {playlists.length === 0 ? "Please create new playlist" : (
+            playlists.map(p => (
+            <div key={p.id} className="playlist-card">
+              <div className='icon-box'>
+                <div className='trash'><FontAwesomeIcon icon={faTrash} /></div>
+                <div className='edit'><FontAwesomeIcon icon={faPen} /></div>
+              </div>
+              <div className="playlist-img" style={{backgroundImage:`url(${p.image})`}}></div>
+              <div>
+                <h4>{`${p.name}`}</h4>
+              </div>
             </div>
-          </div>
-          ))
-        )}
-        {isRendered ? <div className="playlist-form">
-          <form>
-            <div>
-              <label>Playlist name:</label>
-              <input type='text' id="playlist-name" name="playlistName" value={formData.playlistName} onChange={handleChange} />
-            </div>
-            <div>
-              <label>Image link:</label>
-              <input type="text" id="image-url" name="image" value={formData.image} onChange={handleChange} />
-            </div>
-            <div>
-              <button onClick={handleSubmit}>Submit</button>
-              <button onClick={handleCancel}>Cancel</button>
-            </div>
-          </form>
-        </div> : ""}
+            ))
+          )}
+          {isRendered ? <div className={isRendered ? "dark" : ""}>
+            <form>
+              <h3>Create your playlist: </h3>
+              <div className='fields'>
+                <label>Playlist name:</label>
+                <input type='text' id="playlist-name" name="playlistName" value={formData.playlistName} onChange={handleChange} />
+              </div>
+              <div className='fields'>
+                <label>Image link:</label>
+                <input type="text" id="image-url" name="image" value={formData.image} onChange={handleChange} />
+              </div>
+              <div className='btns'>
+                <button className='submit-btn' onClick={handleSubmit}>Submit</button>
+                <button className='cancel-btn' onClick={handleCancel}>Cancel</button>
+              </div>
+            </form>
+          </div> : ""}
+          
+        </div>
       </div>
-    </div>
   )
 }
 
