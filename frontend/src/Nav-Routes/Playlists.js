@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DataContext from '../helpers/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPen, faTrash } from '@fortawesome/free-solid-svg-icons'; 
+import { faPlus, faPen, faTrash, faMusic } from '@fortawesome/free-solid-svg-icons'; 
 import "./Playlists.css";
 
 
@@ -54,31 +54,24 @@ function Playlists() {
         setPlaylists(playlists.filter(p => p.id !== id))
       }
     }catch(err){
-      return err
+      console.error("Error adding playlist:", err)
     }
   }
-
-  // async function editCard(id) {
-  //   try {
-  //     const data = playlists.find(p => p.id === id);
-  //     const result = await editPlaylist(data);
-  //     if(result){
-  //       setPlaylists(playlists.push(result))
-  //     }
-  //   }catch(err){
-  //     return err
-  //   }
-  // }
 
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if(formData.playlistName.length === 0 || formData.image.length === 0) return;
-    
-    const newPlaylist = await addPlaylist(formData)
-    setPlaylists([...playlists, newPlaylist]);
-    setIsRendered(false);
-    navigate("/playlists");
+    try{
+      if(formData.playlistName.length === 0 || formData.image.length === 0) return console.error(`Not enough data`);
+      const newPlaylist = await addPlaylist(formData);
+      console.log(newPlaylist)
+      setPlaylists([...playlists, newPlaylist]);
+      setIsRendered(false);
+      navigate("/playlists");
+      
+    }catch(err){
+      console.error(err)
+    }
   }
 
   return (
@@ -87,21 +80,24 @@ function Playlists() {
           {isRendered ? "" : <div className='playlist-btn' onClick={showForm}><FontAwesomeIcon icon={faPlus} size='2x' /></div>}
 
           {playlists.length === 0 ? "Please create new playlist" : (
-            playlists.map(p => (
-            <div key={p.id} className="playlist-card">
-              <div className='icon-box'>
-                <div className='trash' onClick={() => deleteCard(p.id)}><FontAwesomeIcon icon={faTrash} /></div>
-                <div className='edit'  ><FontAwesomeIcon icon={faPen} /></div>
+            playlists.map(playlist => (
+            
+              <div key={playlist.id} className="playlist-card">
+                <div className='icon-box'>
+                  <div className='trash' onClick={() => deleteCard(playlist.id)}><FontAwesomeIcon icon={faTrash} /></div>
+                  <div className='edit'><FontAwesomeIcon icon={faPen} /></div>
+                  <Link className="tracks" to="/playlist-tracks"><FontAwesomeIcon icon={faMusic} /></Link>
+                </div>
+                <div className="playlist-img" style={{backgroundImage:`url(${playlist?.image || ""})`}}></div>
+                <div>
+                  <h4>{`${playlist.name}`}</h4>
+                </div>
               </div>
-              <div className="playlist-img" style={{backgroundImage:`url(${p.image})`}}></div>
-              <div>
-                <h4>{`${p.name}`}</h4>
-              </div>
-            </div>
+        
             ))
           )}
           {isRendered ? <div className={isRendered ? "dark" : ""}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <h3>Create your playlist: </h3>
               <div className='fields'>
                 <label>Playlist name:</label>
@@ -112,7 +108,7 @@ function Playlists() {
                 <input type="text" id="image-url" name="image" value={formData.image} onChange={handleChange} />
               </div>
               <div className='btns'>
-                <button className='submit-btn' onClick={handleSubmit}>Submit</button>
+                <button type='submit' onClick={handleSubmit} className='submit-btn' >Submit</button>
                 <button className='cancel-btn' onClick={handleCancel}>Cancel</button>
               </div>
             </form>

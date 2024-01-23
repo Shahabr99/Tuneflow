@@ -6,6 +6,7 @@ import Homepage from './Homepage';
 import Tracks from "./Tracks";
 import PlayTrack from "./PlayTrack";
 import Playlists from "./Playlists";
+import PlaylistTracks from "./PlaylistTracks";
 
 
 
@@ -26,6 +27,8 @@ function MainRoutes() {
         <Route path={`/tracks/:trackID`} element={<PlayTrack />} />
 
         <Route path="/playlists"  element={<Playlists />}/>
+
+        <Route path="/playlist-tracks" element={<PlaylistTracks />} />
 
         <Route path="*" element={<Navigate to="/" />} />
           

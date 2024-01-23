@@ -97,7 +97,7 @@ function App() {
   async function addPlaylist(playlistData) {
     try {
       const playlist = await tuneflowApi.addPlaylist(currentUser.username, playlistData);
-      if(playlist) return {success: true};
+      return playlist;
     }catch(err){
       return {success: false};
     }
@@ -118,8 +118,7 @@ function App() {
   async function deletePlaylist(data) {
     try {
       const result = await tuneflowApi.removePlaylist(data);
-      console.log(result);
-      return {success: true}
+      if(result) return {success: true}
     }catch(err){
       return {success: false}
     }
