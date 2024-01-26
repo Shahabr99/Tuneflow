@@ -5,7 +5,7 @@ function Homepage() {
 
 
   return (
-      <main>
+      <main className="homepage-main">
         <div className="header-section">
             <h1>Welcome to Tuneflow!</h1>
             <p>

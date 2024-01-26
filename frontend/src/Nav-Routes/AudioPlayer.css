@@ -1,3 +1,11 @@
+.audio-card {
+  border-radius: 12px;
+  background-color: blanchedalmond;
+  box-shadow: 1px 1px 3px #000;
+  padding: 24px;
+}
+
+
 .controller {
   display: flex;
   flex-direction: column;
@@ -8,7 +16,7 @@
 }
 
 
-.track-img {
+.audio-img {
   background-position: center;
   background-size: cover;
   width: 300px;

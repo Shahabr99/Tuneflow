@@ -1,14 +1,19 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import DataContext from '../helpers/DataContext';
+import TrackContext from '../helpers/TrackContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPen, faTrash, faMusic } from '@fortawesome/free-solid-svg-icons'; 
+import { faPlus, faPen, faTrash, faMusic } from '@fortawesome/free-solid-svg-icons';
+// import axios from 'axios'; 
 import "./Playlists.css";
 
 
 function Playlists() {
   const navigate = useNavigate();
-  const { addPlaylist, requestPlaylists, deletePlaylist } = useContext(DataContext)
+  // const { trackID } = useParams();
+  // console.log(trackID);
+  const savedTrack  = useContext(TrackContext)
+  const { addPlaylist, requestPlaylists, deletePlaylist, saveTrack } = useContext(DataContext)
   const [playlists, setPlaylists] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
   const [formData, setFormData] = useState({
@@ -59,12 +64,28 @@ function Playlists() {
   }
 
 
+  async function addTrack(id) {
+    try {
+      // const trackData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&id=${trackID}`)
+
+      const result = await saveTrack(id, savedTrack);
+      if(result) {
+        navigate(`/${id}/addTrack`)
+      }else{
+        console.error(`No track was added to database`)
+      }
+    }catch(err){
+      console.error(err)
+    }
+  }
+
+
+
   async function handleSubmit(e) {
     e.preventDefault();
     try{
       if(formData.playlistName.length === 0 || formData.image.length === 0) return console.error(`Not enough data`);
       const newPlaylist = await addPlaylist(formData);
-      console.log(newPlaylist)
       setPlaylists([...playlists, newPlaylist]);
       setIsRendered(false);
       navigate("/playlists");
@@ -81,19 +102,19 @@ function Playlists() {
 
           {playlists.length === 0 ? "Please create new playlist" : (
             playlists.map(playlist => (
-            
-              <div key={playlist.id} className="playlist-card">
+              //  to={`/${playlist.id}/playlist-tracks`}
+              <div className="playlist-card" key={playlist.id} onClick={() => addTrack(playlist.id)}>
                 <div className='icon-box'>
                   <div className='trash' onClick={() => deleteCard(playlist.id)}><FontAwesomeIcon icon={faTrash} /></div>
                   <div className='edit'><FontAwesomeIcon icon={faPen} /></div>
-                  <Link className="tracks" to="/playlist-tracks"><FontAwesomeIcon icon={faMusic} /></Link>
+                  <Link className="tracks" to={`/${playlist}/playlist-tracks`}><FontAwesomeIcon icon={faMusic} /></Link>
                 </div>
                 <div className="playlist-img" style={{backgroundImage:`url(${playlist?.image || ""})`}}></div>
                 <div>
                   <h4>{`${playlist.name}`}</h4>
                 </div>
               </div>
-        
+              
             ))
           )}
           {isRendered ? <div className={isRendered ? "dark" : ""}>

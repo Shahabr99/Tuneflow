@@ -37,7 +37,6 @@ class User {
   static async authenticate(username, password) {
     const result = await db.query(`SELECT username, password, name, lastname FROM users WHERE username = $1`, [username]);
     const user = result.rows[0];
-    console.log(`DATABASE found ${user}`);
     if(!user) {
       throw new NotFoundError(`username ${data.username} does NOT exist!`)
     }
@@ -89,7 +88,6 @@ class User {
 
   // Fetches the playlists of a user
   static async getUserPlaylists(username) {
-    console.log(username)
     const result = await db.query(`SELECT id, name, image FROM playlists WHERE username_playlist = $1`, [username]);
     console.log(`Databse sent back ${result}`);
     if(!result.rows.length) {

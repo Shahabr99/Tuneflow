@@ -25,7 +25,7 @@ CREATE TABLE tracks (
   title TEXT NOT NULL,
   image_url TEXT,
   audio TEXT NOT NULL,
-  playlist_name INTEGER NOT NULL REFERENCES playlists(id) ON DELETE CASCADE
+  playlist_id INTEGER NOT NULL REFERENCES playlists(id) ON DELETE CASCADE
 );
 
 

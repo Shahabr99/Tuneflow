@@ -33,6 +33,14 @@
   color: salmon;
 }
 
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
 .playlist-card {
   display: flex;
   min-width: 300px;
@@ -43,6 +51,8 @@
   gap: 24px;
   box-shadow: 1px 1px 3px #000;
   position: relative;
+  text-decoration: none;
+  color: inherit;
 }
 
 .card-link {

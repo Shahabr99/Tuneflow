@@ -51,7 +51,7 @@ function App() {
   useEffect(function getData() {
     async function getSongs() {
       try{
-        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=12&imagesize=300&boost=downloads_month`);
+        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=16&imagesize=300&boost=downloads_month`);
         setTracks(tracksData.data.results);
         
       }catch(err) {
@@ -134,20 +134,20 @@ function App() {
   // }
 
 
-  async function sendTracks(playlistName) {
+  async function saveTrack(playlistID,data) {
     try {
-      const track = await tuneflowApi.getTracks(playlistName);
-      if(track) return {success: true}
+      const track = await tuneflowApi.addTracks(currentUser.username, playlistID, data);
+      return track
     }catch(err){
       return {success: false}
     }
   };
 
 
-  async function requestTracks(playlistName) {
+  async function requestTracks(playlistID) {
     try {
-      const tracks = await tuneflowApi.getTracks(playlistName);
-      if(tracks) return {success: true}
+      const tracks = await tuneflowApi.getTracks(playlistID);
+      return tracks
     }catch(err){
       return {success: false}
     }
@@ -167,7 +167,7 @@ function App() {
               tracks,
                addPlaylist,
                 requestPlaylists,
-                 sendTracks,
+                 saveTrack,
                   requestTracks,
                    deletePlaylist,
           }}>

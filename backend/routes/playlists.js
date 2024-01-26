@@ -11,7 +11,7 @@ router.get("/:username", ensureLoggedIn, async function(req, res, next) {
     const {username} = req.params;
     
     const playlists = await User.getUserPlaylists(username);
-    
+    console.log(playlists)
     return res.json({ playlists });
   } catch(err) {
     return next(err);
@@ -20,9 +20,10 @@ router.get("/:username", ensureLoggedIn, async function(req, res, next) {
 
 
 // makes a request to the database to get all tracks of a specific playlist.
-router.get("/:playlist/tracks", ensureLoggedIn, async function(req, res, next) {
+router.get("/:id/tracks", ensureLoggedIn, async function(req, res, next) {
   try {
-    const tracks = await Playlist.getPlaylistTracks(req.body);
+    const { id } = req.params;
+    const tracks = await Playlist.getPlaylistTracks(id);
     return res.json({tracks});
   } catch(err) {
     return next(err);
@@ -45,11 +46,11 @@ router.post("/:username/addPlaylist", ensureLoggedIn, async function(req, res, n
 
 
 // Route to add a track to playlist 
-router.post("/:username/:playlist/addTrack", ensureLoggedIn, async function(req,res,next) {
+router.post("/:username/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next) {
   try{ 
-    const { username, playlist } = req.params;
+    const { username, playlistID } = req.params;
     const { track } = req.body;
-    const addedTrack = await Playlist.addTracks(username, playlist, track);
+    const addedTrack = await Playlist.addTracks(playlistID, track);
     return res.json({addedTrack});
   }catch(error){
     return next(error);
