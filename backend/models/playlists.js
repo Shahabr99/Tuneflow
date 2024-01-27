@@ -29,9 +29,9 @@ class Playlist {
   // Getting all the tracks of a playlist from db
   static async getPlaylistTracks(playlistID) {
     const result = await db.query(`SELECT title, image_url, audio FROM tracks 
-    JOIN playlist_tracks ON tracks.id = playlists_tracks.track_id 
-    JOIN playlists ON playlists.name = playlists_tracks.playlist_name
-    WHERE playlists.name = $1`, [playlistID]);
+    JOIN playlists_tracks ON tracks.id = playlists_tracks.track_id 
+    JOIN playlists ON playlists.id = playlists_tracks.playlist_id
+    WHERE playlists.id = $1`, [playlistID]);
     if(!result.rows.length) throw new NotFoundError(`No tracks found`);
     return result.rows;
   }

@@ -46,11 +46,11 @@ router.post("/:username/addPlaylist", ensureLoggedIn, async function(req, res, n
 
 
 // Route to add a track to playlist 
-router.post("/:username/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next) {
+router.post("/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next) {
   try{ 
-    const { username, playlistID } = req.params;
-    const { track } = req.body;
-    const addedTrack = await Playlist.addTracks(playlistID, track);
+    const { playlistID } = req.params;
+    const { newTrack } = req.body;
+    const addedTrack = await Playlist.addTracks(playlistID, newTrack);
     return res.json({addedTrack});
   }catch(error){
     return next(error);

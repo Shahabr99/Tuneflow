@@ -1,22 +1,19 @@
 import React, {useState, useEffect, useContext} from "react";
-import TrackContext from "../helpers/DataContext";
+import {useParams} from "react-router-dom";
 import DataContext from "../helpers/DataContext";
 
 function PlaylistTracks() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const { requestTracks } = useContext(DataContext);
-  const { savedTrack } = useContext(TrackContext);
-  console.log(savedTrack);
-
+  const { trackid } = useParams();
 
 
   useEffect(function getData() {
     async function getPlaylistTracks() {
       try {
-        if(savedTrack) {
-          playlistTracks.push(savedTrack)
-        }
-        const result = await requestTracks();
+      
+        const result = await requestTracks(trackid);
+        console.log(result)
         setPlaylistTracks([...result]);
         console.log(playlistTracks)
       } catch(err) {
@@ -28,8 +25,6 @@ function PlaylistTracks() {
 
 
   
-
-
   return (
     <div>
       {playlistTracks.map(track => (

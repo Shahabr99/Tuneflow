@@ -1,14 +1,12 @@
-import React, {useContext, useState} from "react";
+import React, {useContext } from "react";
 import {useNavigate, Link} from "react-router-dom";
 import "./Tracks.css";
-import TrackContext from "../helpers/TrackContext";
 import DataContext from "../helpers/DataContext";
 
 
 
 function Tracks() {
   const navigate = useNavigate();
-  const [savedTrack, setSavedTrack] = useState(null)
   const { tracks } = useContext(DataContext);
   
 
@@ -20,13 +18,11 @@ function Tracks() {
 
   function addTrack(e, track) {
     e.stopPropagation();
-    setSavedTrack(track);
-    navigate("/playlists")
+    navigate(`/${track.id}/playlists`)
   }
 
 
   return(
-    <TrackContext.Provider value={savedTrack}>
       <div className="container">
         {tracks.map((track) => (
           <div  className="card" key={track.id} onClick={(e) => handleClick(e, track.id)} >
@@ -39,7 +35,6 @@ function Tracks() {
           </div>
         ))}
       </div>
-    </TrackContext.Provider>
     );
 };
 

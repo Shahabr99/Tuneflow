@@ -134,9 +134,10 @@ function App() {
   // }
 
 
-  async function saveTrack(playlistID,data) {
+  async function saveTrack(playlistID, data) {
     try {
-      const track = await tuneflowApi.addTracks(currentUser.username, playlistID, data);
+      console.log(playlistID)
+      const track = await tuneflowApi.addTrack(playlistID, data);
       return track
     }catch(err){
       return {success: false}
@@ -147,7 +148,8 @@ function App() {
   async function requestTracks(playlistID) {
     try {
       const tracks = await tuneflowApi.getTracks(playlistID);
-      return tracks
+      if(tracks.length === 0) return {success: false}
+      return tracks;
     }catch(err){
       return {success: false}
     }
