@@ -9,9 +9,7 @@ import AudioPlayer from "./AudioPlayer";
 function PlayTrack() {
   const { tracks } = useContext(DataContext);
   const { trackID } = useParams();
-  console.log(trackID);
   const playingTrack = tracks.find(t => t.id === trackID);
-  console.log(playingTrack.audio)
 
   return (
     <div className="main">

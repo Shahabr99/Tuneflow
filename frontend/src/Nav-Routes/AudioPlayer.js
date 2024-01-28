@@ -4,11 +4,11 @@ import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'; // Import t
 import "./AudioPlayer.css";
 
 const AudioPlayer = ({playingTrack}) => {
-  console.log(playingTrack)
+  
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = React.createRef();
   const {image, audio} = playingTrack;
-  console.log(image, audio);
+  
   
   function handlePlayPause() {
     if(isPlaying) {

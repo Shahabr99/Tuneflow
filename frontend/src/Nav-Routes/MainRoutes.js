@@ -32,7 +32,7 @@ function MainRoutes() {
 
         <Route path="/:playlistid/addTrack" element={<PlaylistTracks />} />
 
-        <Route path="/:playlist/playlist-tracks" element={<PlaylistTracks />} />
+        <Route path="/:playlistid/playlist-tracks" element={<PlaylistTracks />} />
 
         <Route path="*" element={<Navigate to="/" />} />
           

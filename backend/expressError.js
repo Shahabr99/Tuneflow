@@ -6,6 +6,14 @@ class ExpressError extends Error {
   }
 }
 
+// Duplicate data error
+class DuplicateFoundError extends ExpressError{
+  constructor(message="Duplicate Found!") {
+    super(message, 409)
+  }
+}
+
+
 // 404 error NOT FOUND
 class NotFoundError extends ExpressError {
   constructor(message = "NOT FOUND!") {
@@ -38,4 +46,4 @@ class ForbiddenError extends ExpressError {
 }
 
 
-module.exports = {ExpressError, NotFoundError, UnauthorizedError, BadRequestError, ForbiddenError}
+module.exports = {ExpressError, NotFoundError, UnauthorizedError, BadRequestError, ForbiddenError, DuplicateFoundError}

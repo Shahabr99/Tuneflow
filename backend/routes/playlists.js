@@ -49,7 +49,7 @@ router.post("/:username/addPlaylist", ensureLoggedIn, async function(req, res, n
 router.post("/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next) {
   try{ 
     const { playlistID } = req.params;
-    const { newTrack } = req.body;
+    const newTrack  = req.body;
     const addedTrack = await Playlist.addTracks(playlistID, newTrack);
     return res.json({addedTrack});
   }catch(error){

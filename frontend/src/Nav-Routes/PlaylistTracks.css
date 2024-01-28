@@ -1,0 +1,31 @@
+.main-cards {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 24px;
+  margin: 12px auto;
+}
+
+
+
+.playlist-track-card {
+  width: 240px;
+  height: 75px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background-color: #000;
+  color: #eee;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+
+.track-card-img {
+  background-position: center;
+  background-size: cover;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}

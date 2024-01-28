@@ -21,7 +21,7 @@ CREATE TABLE artists (
 
 
 CREATE TABLE tracks (
-  id SERIAL PRIMARY KEY,
+  id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   image_url TEXT,
   audio TEXT NOT NULL,
@@ -32,5 +32,5 @@ CREATE TABLE tracks (
 CREATE TABLE playlists_tracks (
   id SERIAL PRIMARY KEY,
   playlist_id INTEGER REFERENCES playlists(id) ON DELETE CASCADE,
-  track_id INTEGER REFERENCES tracks(id) ON DELETE CASCADE
+  track_id TEXT REFERENCES tracks(id) ON DELETE CASCADE
 );

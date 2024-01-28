@@ -6,4 +6,4 @@ INSERT INTO users
 
 INSERT INTO playlists 
 (name, image, username_playlist) 
-VALUES ('testPlaylist', 'tester');
+VALUES ('testPlaylist','https://cdn.pixabay.com/photo/2017/08/06/04/16/cupcake-2588646_960_720.jpg', 'tester');

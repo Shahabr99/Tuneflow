@@ -1,35 +1,43 @@
 import React, {useState, useEffect, useContext} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import DataContext from "../helpers/DataContext";
+import "./PlaylistTracks.css";
 
 function PlaylistTracks() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const { requestTracks } = useContext(DataContext);
-  const { trackid } = useParams();
+  const { playlistid } = useParams();
+  const navigate = useNavigate();
 
 
   useEffect(function getData() {
     async function getPlaylistTracks() {
       try {
-      
-        const result = await requestTracks(trackid);
+        const result = await requestTracks(playlistid);
         console.log(result)
-        setPlaylistTracks([...result]);
-        console.log(playlistTracks)
+        setPlaylistTracks(result);
       } catch(err) {
         console.error(err)
       }
     }
     getPlaylistTracks()
-  });
+  }, [playlistid, requestTracks]);
+
+
+  function handleClick() {
+
+  }
 
 
   
   return (
-    <div>
+    <div className="main-cards">
       {playlistTracks.map(track => (
-        <div key={track.id} className="track-card">
-          <h2>Here is the track.name</h2>
+        <div key={track.id} className="playlist-track-card" onClick={() => handleClick()} >
+          <div className="track-card-img" style={{backgroundImage:`url(${track.image_url})`}} ></div>
+          <div className="">
+            <h5>{track.title}</h5>
+          </div>
         </div>
       ))}
     </div>

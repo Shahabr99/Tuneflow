@@ -10,7 +10,6 @@ import "./Playlists.css";
 function Playlists() {
   const navigate = useNavigate();
   const { trackID } = useParams();
-  console.log(trackID);
   const { addPlaylist, requestPlaylists, deletePlaylist, saveTrack } = useContext(DataContext)
   const [playlists, setPlaylists] = useState([]);
   const [isRendered, setIsRendered] = useState(false);
@@ -65,14 +64,9 @@ function Playlists() {
   async function addTrack(id) {
     try {
       const trackData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&id=${trackID}`)
-      const newTrack = trackData.data.results[0];
-      console.log(newTrack)      
+      const newTrack = trackData.data.results[0];   
       const result = await saveTrack(id, newTrack);
-      if(result) {
-        navigate(`/${id}/playlist-tracks`)
-      }else{
-        console.error(`No track was added to database`)
-      }
+      return !result ? "The track is already in the playlist": navigate(`/${id}/playlist-tracks`)  
     }catch(err){
       console.error(err)
     }
@@ -101,9 +95,34 @@ function Playlists() {
           isRendered ? (
             ""
           ) : (
-            <div className='playlist-btn' onClick={showForm}>
-              <FontAwesomeIcon icon={faPlus} size='2x' />
-            </div>
+            <>
+              <div className='playlist-btn' onClick={showForm}>
+                <FontAwesomeIcon icon={faPlus} size='2x' />
+              </div>
+              {playlists.length === 0 ? (
+                <div>"Please create new playlist"</div>
+              ) : (
+                playlists.map(playlist => (
+                  <div className="playlist-card" key={playlist.id} onClick={() => addTrack(playlist.id)}>
+                    <div className='icon-box'>
+                      <div className='trash' onClick={() => deleteCard(playlist.id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                      </div>
+                      <div className='edit'>
+                        <FontAwesomeIcon icon={faPen} />
+                      </div>
+                      <Link className="tracks" to={`/${playlist.id}/playlist-tracks`}>
+                        <FontAwesomeIcon icon={faMusic} />
+                      </Link>
+                    </div>
+                    <div className="playlist-img" style={{backgroundImage:`url(${playlist?.image || ""})`}}></div>
+                    <div>
+                      <h4>{`${playlist.name}`}</h4>
+                    </div>
+                  </div>
+                ))
+              )}
+            </>
           )
         ) : (
           playlists.length === 0 ? (
@@ -130,7 +149,6 @@ function Playlists() {
             ))
           )
         )}
-            
         {isRendered ? (
           <div className={isRendered ? "dark" : ""}>
             <form onSubmit={handleSubmit}>
@@ -153,7 +171,6 @@ function Playlists() {
       </div>
     </div>
   );
-  
   
 }
 

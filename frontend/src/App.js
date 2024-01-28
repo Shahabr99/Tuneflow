@@ -65,7 +65,7 @@ function App() {
   // Handles logging out 
   function logout() {
     setCurrentUser(null);
-    setToken(null)
+    setToken(null);
   }
 
   // Handles registration of a user.
@@ -84,7 +84,6 @@ function App() {
   async function login(loginData) {
     try {
       let token = await tuneflowApi.login(loginData);
-      console.log(token)
       setToken(token);
       return {success: true}
     }catch(err) {
@@ -136,7 +135,7 @@ function App() {
 
   async function saveTrack(playlistID, data) {
     try {
-      console.log(playlistID)
+      console.log(data)
       const track = await tuneflowApi.addTrack(playlistID, data);
       return track
     }catch(err){
@@ -147,8 +146,9 @@ function App() {
 
   async function requestTracks(playlistID) {
     try {
+      console.log(playlistID)
       const tracks = await tuneflowApi.getTracks(playlistID);
-      if(tracks.length === 0) return {success: false}
+      
       return tracks;
     }catch(err){
       return {success: false}
@@ -174,7 +174,7 @@ function App() {
                    deletePlaylist,
           }}>
         
-          <Navigation logout={logout} />
+          <Navigation logout={logout} user={currentUser} />
           <MainRoutes  />
           
         </DataContext.Provider>
