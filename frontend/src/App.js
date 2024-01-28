@@ -137,6 +137,7 @@ function App() {
     try {
       console.log(data)
       const track = await tuneflowApi.addTrack(playlistID, data);
+      console.log(track)
       return track
     }catch(err){
       return {success: false}
@@ -146,9 +147,7 @@ function App() {
 
   async function requestTracks(playlistID) {
     try {
-      console.log(playlistID)
       const tracks = await tuneflowApi.getTracks(playlistID);
-      
       return tracks;
     }catch(err){
       return {success: false}
@@ -174,7 +173,7 @@ function App() {
                    deletePlaylist,
           }}>
         
-          <Navigation logout={logout} user={currentUser} />
+          <Navigation logout={logout} />
           <MainRoutes  />
           
         </DataContext.Provider>

@@ -1,12 +1,13 @@
 import {Link, NavLink} from "react-router-dom";
-import React from 'react';
-// import DataContext from "../helpers/DataContext";
+import React, {useContext} from 'react';
+import DataContext from "../helpers/DataContext";
 import "./Navigation.css";
 
 
-function Navigation(logout, user) {
-  console.log(user)
-  // const {currentUser} = useContext(DataContext)
+function Navigation(logout) {
+  
+  const {currentUser} = useContext(DataContext)
+  console.log(currentUser);
 
   function loggedIn() {
     return (
@@ -55,7 +56,7 @@ function Navigation(logout, user) {
   return(
     <nav className="navbar">
       <Link className="logo" to="/">Tuneflow</Link>
-      {user ? loggedIn() : loggedOut()}
+      {currentUser ? loggedIn() : loggedOut()}
     </nav>
   )
 }

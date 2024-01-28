@@ -11,7 +11,6 @@ router.get("/:username", ensureLoggedIn, async function(req, res, next) {
     const {username} = req.params;
     
     const playlists = await User.getUserPlaylists(username);
-    console.log(playlists)
     return res.json({ playlists });
   } catch(err) {
     return next(err);
@@ -24,6 +23,9 @@ router.get("/:id/tracks", ensureLoggedIn, async function(req, res, next) {
   try {
     const { id } = req.params;
     const tracks = await Playlist.getPlaylistTracks(id);
+
+    if(tracks.length === 0) return res.json({tracks:[]})
+
     return res.json({tracks});
   } catch(err) {
     return next(err);
@@ -37,7 +39,7 @@ router.post("/:username/addPlaylist", ensureLoggedIn, async function(req, res, n
     const { username } = req.params;
     const { playlistName, image } = req.body;
     const newPlaylist = await Playlist.createUserPlaylist(playlistName, image, username);
-    console.log(newPlaylist)
+    
     return res.json({ newPlaylist });
   }catch(err) {
     return next(err);
@@ -50,8 +52,10 @@ router.post("/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next
   try{ 
     const { playlistID } = req.params;
     const newTrack  = req.body;
+    console.log(`Line 55: Routes: ${newTrack.id}`)
     const addedTrack = await Playlist.addTracks(playlistID, newTrack);
-    return res.json({addedTrack});
+    console.log(`Line 57: Routes: ${addedTrack}`)
+    return res.json(addedTrack);
   }catch(error){
     return next(error);
   }

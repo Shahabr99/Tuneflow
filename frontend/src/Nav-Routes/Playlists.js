@@ -12,6 +12,7 @@ function Playlists() {
   const { trackID } = useParams();
   const { addPlaylist, requestPlaylists, deletePlaylist, saveTrack } = useContext(DataContext)
   const [playlists, setPlaylists] = useState([]);
+  const [failed, setFailed] = useState(false)
   const [isRendered, setIsRendered] = useState(false);
   const [formData, setFormData] = useState({
     playlistName: "",
@@ -63,13 +64,26 @@ function Playlists() {
 
   async function addTrack(id) {
     try {
-      const trackData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&id=${trackID}`)
-      const newTrack = trackData.data.results[0];   
+      
+      if(!trackID) {
+        return
+      } 
+      const trackData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&id=${trackID}`);
+      
+      const newTrack = trackData.data.results[0];
+      
       const result = await saveTrack(id, newTrack);
-      return !result ? "The track is already in the playlist": navigate(`/${id}/playlist-tracks`)  
-    }catch(err){
+      console.log(result);
+      if(result) navigate(`/${id}/playlist-tracks`);
+      if (!result.success) setFailed(true)
+    } catch(err) {
       console.error(err)
     }
+  }
+
+
+  function navigateToTracks(id) {
+    navigate(`/${id}/playlist-tracks`)
   }
 
 
@@ -103,7 +117,7 @@ function Playlists() {
                 <div>"Please create new playlist"</div>
               ) : (
                 playlists.map(playlist => (
-                  <div className="playlist-card" key={playlist.id} onClick={() => addTrack(playlist.id)}>
+                  <div className="playlist-card" key={playlist.id} onClick={() => navigateToTracks(playlist.id)}>
                     <div className='icon-box'>
                       <div className='trash' onClick={() => deleteCard(playlist.id)}>
                         <FontAwesomeIcon icon={faTrash} />
@@ -168,6 +182,7 @@ function Playlists() {
             </form>
           </div>
         ) : ""}
+        {failed && <div className="message"><p>Failed to add track to playlist!</p></div>}
       </div>
     </div>
   );

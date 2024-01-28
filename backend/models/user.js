@@ -28,7 +28,7 @@ class User {
       [username, hashed_pwd, name, lastname, email]
     )
 
-    console.log(result)
+    
     const user = result.rows[0];
     return user;
   }
@@ -89,7 +89,6 @@ class User {
   // Fetches the playlists of a user
   static async getUserPlaylists(username) {
     const result = await db.query(`SELECT id, name, image FROM playlists WHERE username_playlist = $1`, [username]);
-    console.log(`Databse sent back ${result}`);
     if(!result.rows.length) {
       console.log("No playlist in database")
     }
