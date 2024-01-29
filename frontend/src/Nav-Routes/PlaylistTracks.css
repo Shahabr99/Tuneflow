@@ -40,6 +40,6 @@
   transform: translateX(-20%);
 }
 
-#audio-player {
+.audio-player {
   width: 500px;
 }

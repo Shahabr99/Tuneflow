@@ -74,8 +74,13 @@ function Playlists() {
       
       const result = await saveTrack(id, newTrack);
       console.log(result);
-      if(result) navigate(`/${id}/playlist-tracks`);
-      if (!result.success) setFailed(true)
+      if (!result.success) {
+        setFailed(true);
+        return
+      }else{
+        navigate(`/${id}/playlist-tracks`);
+      } 
+      
     } catch(err) {
       console.error(err)
     }
