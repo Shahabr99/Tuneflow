@@ -1,14 +1,14 @@
 import {useState, useContext} from "react";
 import DataContext from "../helpers/DataContext";
 import {Link, useNavigate} from "react-router-dom";
-import Alert from "../common/Alert";
+
 
 
 
 
 function RegistrationForm() {
   let navigate = useNavigate();
-  const [formErrors, setFormErrors] = useState([])
+  
   const {signup} = useContext(DataContext)
   const [formData, setFormData] = useState({
     name:"",
@@ -20,7 +20,6 @@ function RegistrationForm() {
 
 
   function handleChange(e) {
-    console.log(e.target.name)
     const {name, value} = e.target;
     setFormData(data => ({...data, [name] : value}))
   }
@@ -28,19 +27,18 @@ function RegistrationForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData)
+    
     const result = await signup(formData);
+    console.log(result)
     if(result.success) {
       navigate("/tracks")
-    }else{
-      setFormErrors(result.errors)
     }
   }
 
 
   return (
     <div>
-      {formErrors.length ? <Alert />: null }
+      
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
