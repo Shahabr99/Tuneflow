@@ -4,10 +4,11 @@ import DataContext from "../helpers/DataContext";
 import "./Navigation.css";
 
 
-function Navigation(logout) {
+function Navigation({logout}) {
   
   const {currentUser} = useContext(DataContext)
   console.log(currentUser);
+
 
   function loggedIn() {
     return (

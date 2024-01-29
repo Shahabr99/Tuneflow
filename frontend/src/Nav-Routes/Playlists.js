@@ -87,10 +87,18 @@ function Playlists() {
   }
 
 
+
+
   function navigateToTracks(id) {
     navigate(`/${id}/playlist-tracks`)
   }
 
+
+  function closeMessage(e) {
+    const message = e.target.closest(".message");
+    message.classList.remove("message");
+    message.classList.add("nomessage");
+  }
 
 
   async function handleSubmit(e) {
@@ -106,6 +114,8 @@ function Playlists() {
       console.error(err)
     }
   }
+
+
 
   return (   
     <div className="main-playlist">
@@ -187,7 +197,7 @@ function Playlists() {
             </form>
           </div>
         ) : ""}
-        {failed && <div className="message"><div className='x-icon'><FontAwesomeIcon icon={faXmark} /></div><p>Failed to add track to playlist!</p></div>}
+        {failed && <div className="message"><div className='x-icon' onClick={(e) => closeMessage(e)}><FontAwesomeIcon icon={faXmark} /></div><p>Failed to add track to playlist!</p></div>}
       </div>
     </div>
   );
