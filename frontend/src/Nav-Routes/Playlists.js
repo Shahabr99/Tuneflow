@@ -53,11 +53,13 @@ function Playlists() {
     try {
       const data = playlists.find(p => p.id === id);
       const result = await deletePlaylist(data);
-      if(result) {
-        setPlaylists(playlists.filter(p => p.id !== id))
+
+      if(result.success) {
+        setPlaylists(playlists.filter(p => p.id !== id));
+        navigate("/playlists");
       }
     }catch(err){
-      console.error("Error adding playlist:", err)
+      console.error("Error adding playlist:", err);
     }
   }
 
@@ -74,7 +76,7 @@ function Playlists() {
       
       const result = await saveTrack(id, newTrack);
       console.log(result);
-      if (!result.success) {
+      if (!result) {
         setFailed(true);
         return
       }else{
@@ -105,6 +107,7 @@ function Playlists() {
     e.preventDefault();
     try{
       if(formData.playlistName.length === 0 || formData.image.length === 0) return console.error(`Not enough data`);
+      console.log(formData)
       const newPlaylist = await addPlaylist(formData);
       setPlaylists([...playlists, newPlaylist]);
       setIsRendered(false);
@@ -160,7 +163,7 @@ function Playlists() {
             playlists.map(playlist => (
               <div className="playlist-card" key={playlist.id} onClick={() => addTrack(playlist.id)}>
                 <div className='icon-box'>
-                  <div className='trash' onClick={() => deleteCard(playlist.id)}>
+                  <div className='trash' onClick={() => deleteCard( playlist.id)}>
                     <FontAwesomeIcon icon={faTrash} />
                   </div>
                   <div className='edit'>

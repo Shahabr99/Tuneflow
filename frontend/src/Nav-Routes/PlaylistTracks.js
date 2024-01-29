@@ -14,6 +14,7 @@ function PlaylistTracks() {
     async function getPlaylistTracks() {
       try {
         const result = await requestTracks(playlistid);
+        console.log(result)
         if (result) {
           setPlaylistTracks(result);
         }
@@ -32,6 +33,7 @@ function PlaylistTracks() {
 
   return (
     <div className="main-cards">
+      {playlistTracks.length === 0 ? <div><p>No tracks are available in the playlist</p></div> : ""}
       {playlistTracks.map((track) => (
         <div
           key={track.track_id}

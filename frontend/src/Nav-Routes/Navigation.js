@@ -7,7 +7,6 @@ import "./Navigation.css";
 function Navigation({logout}) {
   
   const {currentUser} = useContext(DataContext)
-  console.log(currentUser);
 
 
   function loggedIn() {

@@ -31,13 +31,14 @@ class tuneflowApi {
   // create new playlist 
   static async addPlaylist(username, data) {
     const res = await this.request(`playlists/${username}/addPlaylist`, data, "post");
- 
+    console.log(res)
     return res.newPlaylist;
   }
 
 
   static async removePlaylist(data) {
     const res = await this.request(`playlists/removePlaylist`, data, "delete");
+    console.log(res)
     return res.playlist;
   }
 

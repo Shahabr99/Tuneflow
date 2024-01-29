@@ -8,16 +8,20 @@ class Playlist {
   // Creates and adds a playlist to db
   static async createUserPlaylist(playlistName, image,  username) {
     const checkDuplicate = await db.query(`SELECT * FROM playlists WHERE name = $1`, [playlistName]);
-    if(checkDuplicate) throw new DuplicateFoundError(`Playlist ${playlistName} already exists!`);
+    console.log(`HERE IS THE DUPLICATE: ${checkDuplicate}`)
+
+    if(checkDuplicate.rows.length > 0) throw new DuplicateFoundError(`Playlist ${playlistName} already exists!`);
+
     const res = await db.query('INSERT INTO playlists (name, image, username_playlist) VALUES ($1, $2, $3) RETURNING id, name, image', [playlistName, image, username]);
     if(!res.rows.length) throw new NotFoundError();
+    console.log(`RETURNING ${res.rows[0]}`)
     return res.rows[0]
   }
 
 
   // Adding track to a playlist using association table
   static async addTracks(playlistID, track) {
-    const checkDuplicate = await db.query(`SELECT * FROM tracks WHERE id = $1`, [track.id]);
+    const checkDuplicate = await db.query(`SELECT * FROM tracks WHERE id = $1 AND title = $2`, [track.id, track.name]);
 
     if(checkDuplicate.rows.length > 0) throw new DuplicateFoundError();
 
@@ -53,14 +57,16 @@ class Playlist {
     JOIN playlists ON playlists.id = playlists_tracks.playlist_id
     WHERE playlists.id = $1`, [playlistID]);
   
-    if(!result.rows.length) throw new NotFoundError(`No tracks found`);
+    if(!result) throw new NotFoundError(`No tracks found`);
+    if(result.rows.length === 0) return []
     return result.rows;
   }
 
 // Removing a playlist from db
   static async removePlaylist(name) {
     const result = await db.query(`DELETE FROM playlists WHERE name = $1 RETURNING id, name, image`, [name]);
-    if(!result.rows.length) throw new NotFoundError(`No playlist found`);
+    console.log(`DELETE RESULT: ${result.rows[0]}`)
+    if(result.rows.length === 0) throw new NotFoundError(`No playlist found`);
     return result.rows[0];
   }
 }
