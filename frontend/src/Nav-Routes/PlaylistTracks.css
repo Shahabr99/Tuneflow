@@ -37,7 +37,7 @@
   position: fixed;
   top: 90%;
   left: 50%;
-  transform: translateX(-20%);
+  transform: translateX(-40%);
 }
 
 .audio-player {

@@ -3,7 +3,7 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import DataContext from '../helpers/DataContext';
 import axios from "axios";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPen, faTrash, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPen, faTrash, faMusic, faXmark } from '@fortawesome/free-solid-svg-icons';
 import "./Playlists.css";
 
 
@@ -187,7 +187,7 @@ function Playlists() {
             </form>
           </div>
         ) : ""}
-        {failed && <div className="message"><p>Failed to add track to playlist!</p></div>}
+        {failed && <div className="message"><div className='x-icon'><FontAwesomeIcon icon={faXmark} /></div><p>Failed to add track to playlist!</p></div>}
       </div>
     </div>
   );
