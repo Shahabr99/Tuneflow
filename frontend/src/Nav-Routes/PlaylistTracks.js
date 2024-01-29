@@ -14,7 +14,7 @@ function PlaylistTracks() {
     async function getPlaylistTracks() {
       try {
         const result = await requestTracks(playlistid);
-        console.log(result)
+       
         if (result) {
           setPlaylistTracks(result);
         }

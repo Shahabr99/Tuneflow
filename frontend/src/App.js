@@ -73,6 +73,7 @@ function App() {
     try {
       let token = await tuneflowApi.signup(signupData);
       setToken(token);
+      console.log(token)
       return {success:true}
     }catch(err){
       console.error(err);
@@ -137,7 +138,6 @@ function App() {
 
   async function saveTrack(playlistID, data) {
     try {
-      console.log(data)
       const track = await tuneflowApi.addTrack(playlistID, data);
       console.log(track)
       return track
@@ -150,7 +150,7 @@ function App() {
   async function requestTracks(playlistID) {
     try {
       const tracks = await tuneflowApi.getTracks(playlistID);
-      console.log(tracks)
+     
       return tracks;
     }catch(err){
       return {success: false}

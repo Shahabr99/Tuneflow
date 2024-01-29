@@ -14,7 +14,6 @@ class Playlist {
 
     const res = await db.query('INSERT INTO playlists (name, image, username_playlist) VALUES ($1, $2, $3) RETURNING id, name, image', [playlistName, image, username]);
     if(!res.rows.length) throw new NotFoundError();
-    console.log(`RETURNING ${res.rows[0]}`)
     return res.rows[0]
   }
 
@@ -23,7 +22,7 @@ class Playlist {
   static async addTracks(playlistID, track) {
     const checkDuplicate = await db.query(`SELECT * FROM tracks WHERE id = $1 AND title = $2`, [track.id, track.name]);
 
-    if(checkDuplicate.rows.length > 0) throw new DuplicateFoundError();
+    if(checkDuplicate.rows[0]) throw new DuplicateFoundError(`DUPLICATE FOUND IN THE DATABASE!`);
 
 
     const newTrack = await db.query
@@ -43,7 +42,7 @@ class Playlist {
       [track.id, playlistID]
     );
     
-    if(!result.rows.length) throw new BadRequestError(`Could not add track to ${playlistID} playlist`);
+    if(result.rows.length === 0) throw new BadRequestError(`Could not add track to ${playlistID} playlist`);
     console.log(`Line 43: models: ${newTrack}`)
     return newTrack.rows[0];
   }

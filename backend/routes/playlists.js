@@ -39,7 +39,6 @@ router.post("/:username/addPlaylist", ensureLoggedIn, async function(req, res, n
     const { username } = req.params;
     const { playlistName, image } = req.body;
     const newPlaylist = await Playlist.createUserPlaylist(playlistName, image, username);
-    console.log(`DATABASE RETURNED ${newPlaylist}`)
     return res.json({ newPlaylist });
   }catch(err) {
     return next(err);

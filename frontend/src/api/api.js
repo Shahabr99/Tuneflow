@@ -45,7 +45,7 @@ class tuneflowApi {
 
   // add tracks to playlist
   static async addTrack(playlistID, data) {
-    console.log(data)
+    
     const res = await this.request(`playlists/${playlistID}/addTrack`, data, "post");
     console.log(res)
     return res;
@@ -62,7 +62,7 @@ class tuneflowApi {
   static async getTracks(playlistID) {
     
     const res = await this.request(`playlists/${playlistID}/tracks`);
-    console.log(res.tracks)
+    
     return res.tracks;
   }
 
@@ -76,7 +76,9 @@ class tuneflowApi {
 
 
   static async signup(data) {
+    console.log(data)
     const res = await this.request(`auth/register`, data, "post");
+    console.log(res)
     return res.token;
   }
 }

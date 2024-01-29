@@ -21,13 +21,14 @@ function RegistrationForm() {
 
   function handleChange(e) {
     console.log(e.target.name)
-    const [name, value] = e.target;
+    const {name, value} = e.target;
     setFormData(data => ({...data, [name] : value}))
   }
 
 
   async function handleSubmit(e) {
     e.preventDefault();
+    console.log(formData)
     const result = await signup(formData);
     if(result.success) {
       navigate("/tracks")
@@ -55,11 +56,11 @@ function RegistrationForm() {
         </div>
         <div>
           <label>Username:</label>
-          <input type="text" id="username" name="username" value={formData.email} onChange={handleChange} />
+          <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
         </div>
         <div>
           <label>Password:</label>
-          <input type="password" id="password" name="password" value={formData.email} onChange={handleChange} />
+          <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
         </div>
         <div>
           <button type="submit">Submit</button>

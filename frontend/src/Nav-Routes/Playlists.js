@@ -76,7 +76,7 @@ function Playlists() {
       
       const result = await saveTrack(id, newTrack);
       console.log(result);
-      if (!result) {
+      if (!result.success) {
         setFailed(true);
         return
       }else{
@@ -100,6 +100,7 @@ function Playlists() {
     const message = e.target.closest(".message");
     message.classList.remove("message");
     message.classList.add("nomessage");
+    navigate("/playlists")
   }
 
 
@@ -200,7 +201,7 @@ function Playlists() {
             </form>
           </div>
         ) : ""}
-        {failed && <div className="message"><div className='x-icon' onClick={(e) => closeMessage(e)}><FontAwesomeIcon icon={faXmark} /></div><p>Failed to add track to playlist!</p></div>}
+        {failed && <div className="message"><div className='x-icon' onClick={(e) => closeMessage(e)}><FontAwesomeIcon icon={faXmark} /></div><p>Duplicate track found in database!💥</p></div>}
       </div>
     </div>
   );
