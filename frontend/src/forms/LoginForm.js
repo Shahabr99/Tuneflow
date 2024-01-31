@@ -14,7 +14,6 @@ function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(formData)
     const result = await login(formData);
     console.log(result)
     if(result.sucess) {

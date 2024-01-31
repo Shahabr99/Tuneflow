@@ -10,7 +10,7 @@ class tuneflowApi {
   static async request(endpoint, data={}, method="get") {
     console.debug('API call:',endpoint, data, method)
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = { Authorization: `Bearer ${tuneflowApi.token}`};
+    const headers = endpoint === ["auth/register", "auth/login"].includes(endpoint) ? {} : { Authorization: `Bearer ${tuneflowApi.token}`};
     const params = (method === "get") ? data : {};
 
     try {

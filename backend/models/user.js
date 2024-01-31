@@ -21,9 +21,9 @@ class User {
       password,
       name,
       lastname,
-      email,
+      email
       )
-      VALUES ($1, $2, $3, $4, $5, $6) 
+      VALUES ($1, $2, $3, $4, $5) 
       RETURNING username, name, lastname, email`, 
       [username, hashed_pwd, name, lastname, email]
     )
@@ -41,7 +41,7 @@ class User {
       throw new NotFoundError(`username ${data.username} does NOT exist!`)
     }
 
-    const valid_pwd = bcrypt.compare(password, user.password);
+    const valid_pwd = await bcrypt.compare(password, user.password);
     if(valid_pwd) {
       // making sure pwd is not exposed
       delete user.password;
@@ -74,7 +74,7 @@ class User {
   static async remove(username) {
     let result = await db.query(`DELETE FROM users WHERE username = $1 RETURNING username`, [username]);
 
-    const user = result.user[0];
+    const user = result.rows[0];
     if(!user) throw new NotFoundError(`No user: ${username}`)
   }
 

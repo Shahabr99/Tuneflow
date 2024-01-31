@@ -9,12 +9,15 @@ const playlistRoutes = require("./routes/playlists");
 const app = express();
 
 app.use(cors());
+app.use(express.json())
 app.use(bodyParser.json());
 app.use(morgan("dev"));
+
+
 app.use(authenticateJWT);
-
-
 app.use("/auth", authRoutes);
+
+
 app.use("/users", userRoutes);
 app.use("/playlists", playlistRoutes);
 
