@@ -23,6 +23,7 @@ function Playlists() {
   useEffect(() => {
     async function getData() {
       const playlists = await requestPlaylists();
+      console.log(playlists)
       playlists.length === 0 ? console.log("No playlists!") : setPlaylists([...playlists])
     }
     getData()
@@ -76,6 +77,7 @@ function Playlists() {
       
       const result = await saveTrack(id, newTrack);
       console.log(result);
+
       if (!result.success) {
         setFailed(true);
         return
@@ -110,6 +112,7 @@ function Playlists() {
       if(formData.playlistName.length === 0 || formData.image.length === 0) return console.error(`Not enough data`);
       console.log(formData)
       const newPlaylist = await addPlaylist(formData);
+      console.log(newPlaylist)
       setPlaylists([...playlists, newPlaylist]);
       setIsRendered(false);
       navigate("/playlists");
@@ -136,6 +139,7 @@ function Playlists() {
                 <div>"Please create new playlist"</div>
               ) : (
                 playlists.map(playlist => (
+                  
                   <div className="playlist-card" key={playlist.id} onClick={() => navigateToTracks(playlist.id)}>
                     <div className='icon-box'>
                       <div className='trash' onClick={() => deleteCard(playlist.id)}>

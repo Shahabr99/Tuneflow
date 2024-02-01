@@ -19,9 +19,9 @@ class Playlist {
 
 
   // Adding track to a playlist using association table
-  static async addTracks(playlistID, track) {
-    const checkDuplicate = await db.query(`SELECT * FROM tracks WHERE id = $1 AND title = $2`, [track.id, track.name]);
-
+  static async addTracks(playlistID, username, track) {
+    const checkDuplicate = await db.query(`SELECT * FROM tracks JOIN playlists p ON tracks.playlist_id = p.id WHERE track.id = $1 AND track.playlist_id = $2 AND p.username_playlist = $3`, [track.id, playlistID, username]);
+    console.log(checkDuplicate)
     if(checkDuplicate.rows[0]) throw new DuplicateFoundError(`DUPLICATE FOUND IN THE DATABASE!`);
 
 

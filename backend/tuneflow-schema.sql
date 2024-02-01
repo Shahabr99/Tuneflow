@@ -33,4 +33,6 @@ CREATE TABLE playlists_tracks (
   id SERIAL PRIMARY KEY,
   playlist_id INTEGER REFERENCES playlists(id) ON DELETE CASCADE,
   track_id TEXT REFERENCES tracks(id) ON DELETE CASCADE
+
+  CONSTRAINT unique_playlist_track UNIQUE (playlist_id, track_id)
 );

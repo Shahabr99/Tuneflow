@@ -47,12 +47,13 @@ router.post("/:username/addPlaylist", ensureLoggedIn, async function(req, res, n
 
 
 // Route to add a track to playlist 
-router.post("/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next) {
+router.post("/:username/:playlistID/addTrack", ensureLoggedIn, async function(req,res,next) {
   try{ 
-    const { playlistID } = req.params;
+    const { username, playlistID } = req.params;
+    console.log(username, playlistID)
     const newTrack  = req.body;
-    console.log(`Line 55: Routes: ${newTrack.id}`)
-    const addedTrack = await Playlist.addTracks(playlistID, newTrack);
+    console.log(`Line 55: Routes: ${newTrack.id} AND ${playlistID}`)
+    const addedTrack = await Playlist.addTracks(playlistID, username, newTrack);
     console.log(`Line 57: Routes: ${addedTrack}`)
     return res.json(addedTrack);
   }catch(error){
