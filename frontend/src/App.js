@@ -139,11 +139,10 @@ function App() {
 
   async function saveTrack(playlistID, data) {
     try {
-      console.log(currentUser)
       const track = await tuneflowApi.addTrack(playlistID, data, currentUser.username);
       console.log(track)
       if(track) return {success: true}
-    }catch(err){
+    } catch(err) {
       return {success: false}
     }
   };
