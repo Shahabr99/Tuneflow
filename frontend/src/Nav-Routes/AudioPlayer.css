@@ -45,6 +45,7 @@
   font-weight: 700;
   box-shadow: 1px 1px 3px #000;
   background-color: #000;
+  color: #eee;
 }
 
 .pause {
@@ -54,6 +55,7 @@
   font-weight: 700;
   box-shadow: 1px 1px 3px #000;
   background-color: #000;
+  color: #eee;
 }
 
 .play:active, .pause:active {

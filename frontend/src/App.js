@@ -26,7 +26,6 @@ function App() {
 
     async function getCurrentUser() {
       if(token) {
-        console.log(`THIS IS THE TOKEN: ${token}`)
         try {
           const {username} = jwt.decode(token);
          
