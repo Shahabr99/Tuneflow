@@ -3,9 +3,6 @@ import DataContext from "../helpers/DataContext";
 import {Link, useNavigate} from "react-router-dom";
 
 
-
-
-
 function RegistrationForm() {
   let navigate = useNavigate();
   
@@ -29,9 +26,11 @@ function RegistrationForm() {
     e.preventDefault();
     
     const result = await signup(formData);
-    console.log(result)
     if(result.success) {
       navigate("/tracks")
+    }else{
+      navigate("/");
+      console.log("Duplicate user")
     }
   }
 

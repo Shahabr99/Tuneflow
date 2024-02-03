@@ -10,7 +10,9 @@ class tuneflowApi {
   static async request(endpoint, data={}, method="get") {
     console.debug('API call:',endpoint, data, method)
     const url = `${BASE_URL}/${endpoint}`;
-    const headers = endpoint === ["auth/register", "auth/login"].includes(endpoint) ? {} : { Authorization: `Bearer ${tuneflowApi.token}`};
+    // const headers = endpoint === ["auth/register", "auth/login"].includes(endpoint) ? {} : { Authorization: `Bearer ${tuneflowApi.token}`};
+    const headers = ["auth/register", "auth/login"].includes(endpoint) ? {} : { Authorization: `Bearer ${tuneflowApi.token}`};
+    // const headers = { Authorization: `Bearer ${this.token}`};
     const params = (method === "get") ? data : {};
 
     try {
@@ -31,30 +33,25 @@ class tuneflowApi {
   // create new playlist 
   static async addPlaylist(username, data) {
     const res = await this.request(`playlists/${username}/addPlaylist`, data, "post");
-    console.log(res.newPlaylist)
     return res.newPlaylist;
   }
 
 
   static async removePlaylist(data) {
     const res = await this.request(`playlists/removePlaylist`, data, "delete");
-    console.log(res)
     return res.playlist;
   }
 
 
   // add tracks to playlist
   static async addTrack(playlistID, data, username) {
-    console.log(username)
     const res = await this.request(`playlists/${username}/${playlistID}/addTrack`, data, "post");
-    console.log(res)
     return res;
   }
 
 
   static async getPlaylists(username) {
     const res = await this.request(`playlists/${username}`);
-    console.log(res.playlists)
     return res.playlists;
   }
 
@@ -69,7 +66,6 @@ class tuneflowApi {
 
 
   static async login(data) {
-    console.log(data)
     const res = await this.request(`auth/login`, data, "post");
     console.log(res)
     return res.token;
@@ -77,7 +73,6 @@ class tuneflowApi {
 
 
   static async signup(data) {
-    console.log(data)
     const res = await this.request(`auth/register`, data, "post");
     console.log(res)
     return res.token;

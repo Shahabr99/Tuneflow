@@ -11,8 +11,13 @@
   flex-direction: column;
   gap: 24px;
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
+  transform: translate(-50%, -75%);
+  background-color: #eee;
+  height: 400px;
+  box-shadow: 2px 2px 3px #000;
+  border: 1px solid;
 }
 
 
@@ -39,6 +44,7 @@
   border: none;
   font-weight: 700;
   box-shadow: 1px 1px 3px #000;
+  background-color: #000;
 }
 
 .pause {
@@ -47,6 +53,7 @@
   height:50px;
   font-weight: 700;
   box-shadow: 1px 1px 3px #000;
+  background-color: #000;
 }
 
 .play:active, .pause:active {

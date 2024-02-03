@@ -16,7 +16,7 @@ export const TOKEN_ID = "tuneflow-token";
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
-  const [token, setToken] = useLocalStorage(TOKEN_ID)
+  const [token, setToken] = useLocalStorage(TOKEN_ID);
   const [currentUser, setCurrentUser] = useState(null);
   const [tracks, setTracks] = useState([]);
   
@@ -26,6 +26,7 @@ function App() {
 
     async function getCurrentUser() {
       if(token) {
+        console.log(`THIS IS THE TOKEN: ${token}`)
         try {
           const {username} = jwt.decode(token);
          
@@ -66,14 +67,16 @@ function App() {
   function logout() {
     setCurrentUser(null);
     setToken(null);
+
+    localStorage.removeItem(TOKEN_ID)
   }
 
   // Handles registration of a user.
   async function signup(signupData) {
     try {
-      let token = await tuneflowApi.signup(signupData);
-      setToken(token);
-      console.log(token)
+      let apiToken = await tuneflowApi.signup(signupData);
+      setToken(apiToken);
+      console.log(apiToken)
       return {success:true}
     }catch(err){
       console.error(err);
@@ -84,8 +87,9 @@ function App() {
 
   async function login(loginData) {
     try {
-      let token = await tuneflowApi.login(loginData);
-      setToken(token);
+      let apiToken = await tuneflowApi.login(loginData);
+      console.log(apiToken)
+      setToken(apiToken);
       return {success: true}
     }catch(err) {
       console.error(`login failed`, err);
@@ -96,7 +100,6 @@ function App() {
 
   async function addPlaylist(playlistData) {
     try {
-      console.log(playlistData)
       const playlist = await tuneflowApi.addPlaylist(currentUser.username, playlistData);
       console.log(playlist)
       return playlist;
@@ -120,7 +123,6 @@ function App() {
   async function deletePlaylist(data) {
     try {
       const result = await tuneflowApi.removePlaylist(data);
-      console.log(result)
       if(result) return {success: true}
     }catch(err){
       return {success: false}
@@ -140,7 +142,6 @@ function App() {
   async function saveTrack(playlistID, data) {
     try {
       const track = await tuneflowApi.addTrack(playlistID, data, currentUser.username);
-      console.log(track)
       if(track) return {success: true}
     } catch(err) {
       return {success: false}

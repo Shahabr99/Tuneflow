@@ -23,8 +23,7 @@ function Playlists() {
   useEffect(() => {
     async function getData() {
       const playlists = await requestPlaylists();
-      console.log(playlists)
-      playlists.length === 0 ? console.log("No playlists!") : setPlaylists([...playlists])
+      if(playlists.length > 0) setPlaylists([...playlists])
     }
     getData()
   }, [requestPlaylists]);
@@ -76,7 +75,6 @@ function Playlists() {
       const newTrack = trackData.data.results[0];
       
       const result = await saveTrack(id, newTrack);
-      console.log(result);
 
       if (!result.success) {
         setFailed(true);
@@ -108,16 +106,25 @@ function Playlists() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    try{
-      if(formData.playlistName.length === 0 || formData.image.length === 0) return console.error(`Not enough data`);
-      console.log(formData)
+    try {
+      if(formData.playlistName.length === 0 || formData.image.length === 0) {
+        console.error(`Not enough data`);
+        return;
+      }
+
       const newPlaylist = await addPlaylist(formData);
-      console.log(newPlaylist)
-      setPlaylists([...playlists, newPlaylist]);
+
+      if(!newPlaylist) {
+        setFailed(true);
+        setIsRendered(false);
+        return;
+      }
+
+      setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylist]);
       setIsRendered(false);
       navigate("/playlists");
       
-    }catch(err){
+    } catch(err) {
       console.error(err)
     }
   }
@@ -205,7 +212,7 @@ function Playlists() {
             </form>
           </div>
         ) : ""}
-        {failed && <div className="message"><div className='x-icon' onClick={(e) => closeMessage(e)}><FontAwesomeIcon icon={faXmark} /></div><p>Duplicate track found in database!💥</p></div>}
+        {failed && <div className="message"><div className='x-icon' onClick={(e) => closeMessage(e)}><FontAwesomeIcon icon={faXmark} /></div><p>Duplicate found!💥</p></div>}
       </div>
     </div>
   );

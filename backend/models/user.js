@@ -9,7 +9,7 @@ class User {
 
   // Create a new user in database
   static async register({name, lastname, username, password, email}) {
-    const checkDuplicate = await db.query(`SELECT username, password FROM users WHERE username = $1`, [username]);
+    const checkDuplicate = await db.query(`SELECT username FROM users WHERE username = $1`, [username]);
     if(checkDuplicate.rows[0]) {
       throw new BadRequestError(`Duplicate username: ${username}`)
     }

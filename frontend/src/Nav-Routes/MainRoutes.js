@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+// import PrivateRoute from '../helpers/PrivateRoute';
 import LoginForm from "../forms/LoginForm";
 import RegistrationForm from '../forms/RegistrationForm';
 import Homepage from './Homepage';
@@ -23,19 +24,19 @@ function MainRoutes() {
         <Route exact path="/register" element={<RegistrationForm />} />
 
         <Route exact path="/tracks" element={<Tracks />}  />
-
+       
         <Route path={`/tracks/:trackID`} element={<PlayTrack />} />
-
+    
         <Route path="/playlists"  element={<Playlists />}/>
-
+       
         <Route path="/:trackID/playlists" element={<Playlists />} />
-
+      
         <Route path="/:playlistid/addTrack" element={<PlaylistTracks />} />
-
+      
         <Route path="/:playlistid/playlist-tracks" element={<PlaylistTracks />} />
+ 
+        <Route path="*" element={<Navigate to="/" />} />  
 
-        <Route path="*" element={<Navigate to="/" />} />
-          
       </Routes>
     </div>
   )

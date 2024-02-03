@@ -52,9 +52,7 @@ router.post("/:username/:playlistID/addTrack", ensureLoggedIn, async function(re
     const { username, playlistID } = req.params;
     console.log(username, playlistID)
     const newTrack  = req.body;
-    console.log(`Line 55: Routes: ${newTrack.id} AND ${playlistID}`)
     const addedTrack = await Playlist.addTracks(playlistID, username, newTrack);
-    console.log(`Line 57: Routes: ${addedTrack}`)
     return res.json(addedTrack);
   }catch(error){
     return next(error);
@@ -67,7 +65,6 @@ router.delete("/removePlaylist", ensureLoggedIn, async function(req, res, next) 
   try{
     const {name} = req.body;
     const playlist = await Playlist.removePlaylist(name);
-    console.log(` DATABSE RETURNED: ${playlist}`)
     return res.json({playlist})
   }catch(err){
     return next(err)

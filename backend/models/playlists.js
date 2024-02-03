@@ -1,5 +1,5 @@
 const db = require("../db");
-const {NotFoundError, BadRequestError, DuplicateFoundError} = require("../expressError")
+const {NotFoundError, BadRequestError, DuplicateFoundError} = require("../expressError");
 
 
 
@@ -7,8 +7,7 @@ class Playlist {
 
   // Creates and adds a playlist to db
   static async createUserPlaylist(playlistName, image,  username) {
-    const checkDuplicate = await db.query(`SELECT * FROM playlists WHERE name = $1`, [playlistName]);
-    console.log(`HERE IS THE DUPLICATE: ${checkDuplicate}`)
+    const checkDuplicate = await db.query(`SELECT * FROM playlists WHERE name = $1 AND username_playlist = $2`, [playlistName, username]);
 
     if(checkDuplicate.rows.length > 0) throw new DuplicateFoundError(`Playlist ${playlistName} already exists!`);
 
@@ -21,7 +20,6 @@ class Playlist {
   // Adding track to a playlist using association table
   static async addTracks(playlistID, username, track) {
     const checkDuplicate = await db.query(`SELECT * FROM tracks JOIN playlists p ON tracks.playlist_id = p.id WHERE tracks.id = $1 AND tracks.playlist_id = $2 AND p.username_playlist = $3`, [track.id, playlistID, username]);
-    console.log(checkDuplicate)
     if(checkDuplicate.rows[0]) throw new DuplicateFoundError(`DUPLICATE FOUND IN THE DATABASE!`);
 
 
@@ -43,7 +41,6 @@ class Playlist {
     );
     
     if(result.rows.length === 0) throw new BadRequestError(`Could not add track to ${playlistID} playlist`);
-    console.log(`Line 43: models: ${newTrack}`)
     return newTrack.rows[0];
   }
 
@@ -64,7 +61,6 @@ class Playlist {
 // Removing a playlist from db
   static async removePlaylist(name) {
     const result = await db.query(`DELETE FROM playlists WHERE name = $1 RETURNING id, name, image`, [name]);
-    console.log(`DELETE RESULT: ${result.rows[0]}`)
     if(result.rows.length === 0) throw new NotFoundError(`No playlist found`);
     return result.rows[0];
   }
