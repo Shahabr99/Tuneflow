@@ -24,6 +24,7 @@ class tuneflowApi {
     }
   }
 
+  
   // Get current user info from database
   static async getCurrentUser(username) {
     const res = await this.request(`users/${username}`);
