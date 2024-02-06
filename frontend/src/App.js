@@ -75,7 +75,6 @@ function App() {
     try {
       let apiToken = await tuneflowApi.signup(signupData);
       setToken(apiToken);
-      console.log(apiToken)
       return {success:true}
     }catch(err){
       console.error(err);
@@ -87,7 +86,6 @@ function App() {
   async function login(loginData) {
     try {
       let apiToken = await tuneflowApi.login(loginData);
-      console.log(apiToken)
       setToken(apiToken);
       return {success: true}
     }catch(err) {

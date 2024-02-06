@@ -67,14 +67,12 @@ class tuneflowApi {
 
   static async login(data) {
     const res = await this.request(`auth/login`, data, "post");
-    console.log(res)
     return res.token;
   }
 
 
   static async signup(data) {
     const res = await this.request(`auth/register`, data, "post");
-    console.log(res)
     return res.token;
   }
 }
