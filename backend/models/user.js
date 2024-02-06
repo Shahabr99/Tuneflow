@@ -28,7 +28,6 @@ class User {
       [username, hashed_pwd, name, lastname, email]
     )
 
-    console.log(`RESULT IS THIS: ${result.rows[0]}`)
     const user = result.rows[0];
     return user;
   }

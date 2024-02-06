@@ -11,17 +11,17 @@ const loginSchema = require("../schemas/login.json")
 router.post("/login", async function(req, res, next) {
   try {
     const validator = jsonSchema.validate(req.body, loginSchema);
-    console.log(`validator: ${validator}`)
+    
     if(!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
     const {username, password} = req.body;
-    console.log(`Received ${username} from api`)
+   
     const user = await User.authenticate(username, password);
-    console.log(`${user} LOGGED IN`)
+    console.log(user)
     const token = createToken(user);
-    console.log(`${token}`)
+    
     return res.json({token})
   }catch(err){
     return next(err)

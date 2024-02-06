@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BASE_URL || "https://tuneflow-backend.onrender.com";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 
 class tuneflowApi {
@@ -24,7 +24,6 @@ class tuneflowApi {
     }
   }
 
-  
   // Get current user info from database
   static async getCurrentUser(username) {
     const res = await this.request(`users/${username}`);

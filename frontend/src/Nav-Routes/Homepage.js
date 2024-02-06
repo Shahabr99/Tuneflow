@@ -3,7 +3,6 @@ import "./Homepage.css";
 
 function Homepage() {
 
-
   return (
       <main className="homepage-main">
         <div className="header-section">

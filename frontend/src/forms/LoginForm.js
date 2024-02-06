@@ -1,12 +1,14 @@
 import React, {useState, useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import DataContext from '../helpers/DataContext';
+import "./LoginForm.css";
+
 // import Alert from "../common/Alert";
 
 function LoginForm() {
   let navigate = useNavigate();
-  // const [formErrors, setFormErrors] = useState([])
-  const {login} = useContext(DataContext)
+  const {login} = useContext(DataContext);
+  const [formError, setFormError] = useState(false)
   const [formData, setFormData] = useState({
     username: "",
     password: ""
@@ -15,10 +17,13 @@ function LoginForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     const result = await login(formData);
-    if(result.sucess) {
-      navigate("/tracks")
+    console.log(result)
+    if(result.success) {
+      navigate("/tracks");
     }else{
-      navigate("/")
+      // navigate("/")
+      setFormError(true);
+      return
     }
   }
 
@@ -31,8 +36,10 @@ function LoginForm() {
 
   return (
     <div>
+      
       {/* {formErrors.length ? <Alert messages={formErrors} /> : null } */}
       <form onSubmit={handleSubmit} >
+      {formError ? <p className='error-msg'>invalid username/password</p> : ""}
         <div>
           <label >Username:</label>
           <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} required/>
@@ -41,9 +48,9 @@ function LoginForm() {
           <label>Password:</label>
           <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
         </div>
-        <div>
+        <div className="">
           <button type="submit">Submit</button>
-          <Link to="/">Cancel</Link>
+          <Link to="/"><button>Cancel</button></Link>
         </div>
       </form>
     </div>
