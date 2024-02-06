@@ -17,7 +17,6 @@ function LoginForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     const result = await login(formData);
-    console.log(result)
     if(result.success) {
       navigate("/tracks");
     }else{
