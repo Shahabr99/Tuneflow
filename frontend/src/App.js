@@ -11,8 +11,10 @@ import axios from "axios";
 
 
 
-// Key name for storing token in localStorage for "remember me" re-login
+// Key name for storing token in localStorage for re-login
 export const TOKEN_ID = "tuneflow-token";
+
+
 
 function App() {
   const [infoLoaded, setInfoLoaded] = useState(false);
@@ -21,9 +23,9 @@ function App() {
   const [tracks, setTracks] = useState([]);
   
 
-
   useEffect(function loadUserInfo() {
 
+    // Gets the current user's username based on the token
     async function getCurrentUser() {
       if(token) {
         try {
@@ -32,10 +34,13 @@ function App() {
 
           // Set the token in our API to make requests
           tuneflowApi.token = token;
+
+          // Gets user's information based on username from backend
           let currentUser = await tuneflowApi.getCurrentUser(username);
           
           setCurrentUser(currentUser);
 
+        // throws an error if it doesn't find the user
         }catch(err) {
           console.error("Problem loading...", err);
           setCurrentUser(null)
@@ -43,11 +48,13 @@ function App() {
       }
       setInfoLoaded(true)
     }
+
     setInfoLoaded(false)
     getCurrentUser()
   }, [token]);
 
 
+  // Gets the tracks information from the external API
   useEffect(function getData() {
     async function getSongs() {
       try{
@@ -69,6 +76,7 @@ function App() {
 
     localStorage.removeItem(TOKEN_ID)
   }
+  
 
   // Handles registration of a user.
   async function signup(signupData) {

@@ -19,7 +19,7 @@ describe("registration", function() {
   test("works", async function() {
     let user = await User.register({...newUser, passowrd: "testPassword"});
 
-    expect(user).toEqual(newUser);
+    expect(user).toEqual(newUser)
   });
 
   test("error for duplicate", async function() {
