@@ -91,22 +91,26 @@ function App() {
   }
 
 
+  // Handles users logins 
   async function login(loginData) {
     try {
+
+      // sends the username and password to backend and receives a token after authentication
       let apiToken = await tuneflowApi.login(loginData);
+
       setToken(apiToken);
       return {success: true}
+
     }catch(err) {
       console.error(`login failed`, err);
       return {success: false}
     }
   }
 
-
+  // Sends the new playlist information to backend and receives the playlist info
   async function addPlaylist(playlistData) {
     try {
       const playlist = await tuneflowApi.addPlaylist(currentUser.username, playlistData);
-      console.log(playlist)
       return playlist;
     }catch(err){
       return {success: false};
@@ -114,7 +118,7 @@ function App() {
   };
 
 
-
+  // Gets all the playlists of the current user
   async function requestPlaylists() {
     try{
       const playlists = await tuneflowApi.getPlaylists(currentUser.username);
@@ -123,6 +127,8 @@ function App() {
       return {success: false}
     }
   };
+
+
 
 // Handles removing a playlist from db
   async function deletePlaylist(data) {
@@ -143,7 +149,7 @@ function App() {
   //   }
   // }
 
-
+  // sends the info of user, track and playlist to backend to add a new music to a playlist
   async function saveTrack(playlistID, data) {
     try {
       const track = await tuneflowApi.addTrack(playlistID, data, currentUser.username);
@@ -154,6 +160,7 @@ function App() {
   };
 
 
+  // Gets all the tracks of a plylist based on the playlist id
   async function requestTracks(playlistID) {
     try {
       const tracks = await tuneflowApi.getTracks(playlistID);
@@ -164,7 +171,7 @@ function App() {
     }
   }
 
-
+  // If there is no user info loaded, shows the spinner
   if(!infoLoaded) return <LoadingSpinner />
 
   return (
