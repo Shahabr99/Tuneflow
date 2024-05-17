@@ -76,11 +76,14 @@ function App() {
 
     localStorage.removeItem(TOKEN_ID)
   }
-  
+
 
   // Handles registration of a user.
   async function signup(signupData) {
     try {
+
+      // sends the information of the user to the backend 
+      // receives a token and assigns it to the token State.
       let apiToken = await tuneflowApi.signup(signupData);
       setToken(apiToken);
       return {success:true}
@@ -91,8 +94,11 @@ function App() {
   }
 
 
+  // Handles user logins
   async function login(loginData) {
     try {
+      // sends user's information to backend for authentication
+      // receives a token after authentication.
       let apiToken = await tuneflowApi.login(loginData);
       setToken(apiToken);
       return {success: true}
@@ -103,10 +109,11 @@ function App() {
   }
 
 
+  // Gets playlist data user entered and sends the playlist info
+  // to the backend to create a playlist and returns playlist info
   async function addPlaylist(playlistData) {
     try {
       const playlist = await tuneflowApi.addPlaylist(currentUser.username, playlistData);
-      console.log(playlist)
       return playlist;
     }catch(err){
       return {success: false};
@@ -114,7 +121,7 @@ function App() {
   };
 
 
-
+  // Gets all the user's playlists from the backend
   async function requestPlaylists() {
     try{
       const playlists = await tuneflowApi.getPlaylists(currentUser.username);
@@ -124,7 +131,9 @@ function App() {
     }
   };
 
-// Handles removing a playlist from db
+
+
+  // Handles removing a playlist from db
   async function deletePlaylist(data) {
     try {
       const result = await tuneflowApi.removePlaylist(data);
@@ -144,6 +153,7 @@ function App() {
   // }
 
 
+  // Adds a track to the user's playlist
   async function saveTrack(playlistID, data) {
     try {
       const track = await tuneflowApi.addTrack(playlistID, data, currentUser.username);
