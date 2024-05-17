@@ -9,13 +9,13 @@ function Tracks() {
   const navigate = useNavigate();
   const { tracks } = useContext(DataContext);
   
-
+  // Navigates the user to the music player page
   function handleClick(e, id) {
     e.stopPropagation();
     navigate(`/tracks/${id}`);
   };
 
-
+  // takes the user to the existing playlist to choose from for adding the track
   function addTrack(e, track) {
     e.stopPropagation();
     navigate(`/${track.id}/playlists`)

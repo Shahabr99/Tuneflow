@@ -10,9 +10,12 @@ function PlaylistTracks() {
   const { requestTracks } = useContext(DataContext);
   const { playlistid } = useParams();
 
+
+  // When component mounts, gets the tracks of a playlist from backend.
   useEffect(() => {
     async function getPlaylistTracks() {
       try {
+        // 
         const result = await requestTracks(playlistid);
        
         if (result) {
@@ -26,10 +29,14 @@ function PlaylistTracks() {
     getPlaylistTracks();
   }, [playlistid, requestTracks]);
 
+
+  
   function handleClick(track) {
     setPlayingTrack(track);
     setIsPlaying(true);
   }
+
+
 
   return (
     <div className="main-cards">

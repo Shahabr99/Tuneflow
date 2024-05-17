@@ -5,7 +5,7 @@ import trackPlayer from "../images/home2160.mp4"
 import DataContext from "../helpers/DataContext";
 import AudioPlayer from "./AudioPlayer";
 
-
+// Finds the playing track and shows the music player
 function PlayTrack() {
   const { tracks } = useContext(DataContext);
   const { trackID } = useParams();
