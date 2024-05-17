@@ -94,23 +94,23 @@ function App() {
   }
 
 
-  // Handles user logins
+  // Handles users logins 
   async function login(loginData) {
     try {
-      // sends user's information to backend for authentication
-      // receives a token after authentication.
+
+      // sends the username and password to backend and receives a token after authentication
       let apiToken = await tuneflowApi.login(loginData);
+
       setToken(apiToken);
       return {success: true}
+
     }catch(err) {
       console.error(`login failed`, err);
       return {success: false}
     }
   }
 
-
-  // Gets playlist data user entered and sends the playlist info
-  // to the backend to create a playlist and returns playlist info
+  // Sends the new playlist information to backend and receives the playlist info
   async function addPlaylist(playlistData) {
     try {
       const playlist = await tuneflowApi.addPlaylist(currentUser.username, playlistData);
@@ -121,7 +121,7 @@ function App() {
   };
 
 
-  // Gets all the user's playlists from the backend
+  // Gets all the playlists of the current user
   async function requestPlaylists() {
     try{
       const playlists = await tuneflowApi.getPlaylists(currentUser.username);
@@ -133,7 +133,7 @@ function App() {
 
 
 
-  // Handles removing a playlist from db
+// Handles removing a playlist from db
   async function deletePlaylist(data) {
     try {
       const result = await tuneflowApi.removePlaylist(data);
@@ -152,8 +152,7 @@ function App() {
   //   }
   // }
 
-
-  // Adds a track to the user's playlist
+  // sends the info of user, track and playlist to backend to add a new music to a playlist
   async function saveTrack(playlistID, data) {
     try {
       const track = await tuneflowApi.addTrack(playlistID, data, currentUser.username);
@@ -164,6 +163,7 @@ function App() {
   };
 
 
+  // Gets all the tracks of a plylist based on the playlist id
   async function requestTracks(playlistID) {
     try {
       const tracks = await tuneflowApi.getTracks(playlistID);
@@ -174,7 +174,7 @@ function App() {
     }
   }
 
-
+  // If there is no user info loaded, shows the spinner
   if(!infoLoaded) return <LoadingSpinner />
 
   return (

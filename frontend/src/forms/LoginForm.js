@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import DataContext from '../helpers/DataContext';
 import "./LoginForm.css";
 
-// import Alert from "../common/Alert";
+
 
 function LoginForm() {
   let navigate = useNavigate();
@@ -14,19 +14,22 @@ function LoginForm() {
     password: ""
   });
 
+
+  // Gets the credentials and sends to backend for authentication //
+  //if authentication is successful, redirects to the tracks page //
   async function handleSubmit(e) {
     e.preventDefault();
     const result = await login(formData);
     if(result.success) {
       navigate("/tracks");
     }else{
-      // navigate("/")
+      
       setFormError(true);
       return
     }
   }
 
-
+  // handles data typed in the login form and changes the State form based on that //
   function handleChange(e) {
     const {name, value} = e.target;
     setFormData(data => ({...data, [name]:value}))
@@ -36,7 +39,6 @@ function LoginForm() {
   return (
     <div>
       
-      {/* {formErrors.length ? <Alert messages={formErrors} /> : null } */}
       <form onSubmit={handleSubmit} >
       {formError ? <p className='error-msg'>invalid username/password</p> : ""}
         <div>
