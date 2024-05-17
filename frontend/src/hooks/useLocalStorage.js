@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 
-
+// custome hook to add the TOKEN_ID to local storage
 function useLocalStorage(key, firstValue = null) {
 
   const initialValue = localStorage.getItem(key) || firstValue;

@@ -8,7 +8,7 @@ function Navigation({logout}) {
   
   const {currentUser} = useContext(DataContext)
 
-
+  // Renders navbar if a user is logged in
   function loggedIn() {
     return (
       <ul>
@@ -34,7 +34,7 @@ function Navigation({logout}) {
     )
   }
 
-
+  // renders a different navbar when user logs out
   function loggedOut() {
     return (
       <ul>

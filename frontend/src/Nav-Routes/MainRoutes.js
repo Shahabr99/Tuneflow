@@ -8,7 +8,7 @@ import PlayTrack from "./PlayTrack";
 import Playlists from "./Playlists";
 import PlaylistTracks from "./PlaylistTracks";
 
-
+// Renders the component based on the route
 function MainRoutes() {
 
 
@@ -34,6 +34,7 @@ function MainRoutes() {
         
         <Route path="/:playlistid/playlist-tracks" element={<PlaylistTracks />} />
        
+        {/* Any route except the defined ones above, navigates the user to homepage */}
         <Route path="*" element={<Navigate to="/" />} />  
 
       </Routes>

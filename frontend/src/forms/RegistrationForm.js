@@ -16,12 +16,15 @@ function RegistrationForm() {
   })
 
 
+  // Updates the registration form data State based on what user enters in the fields
   function handleChange(e) {
     const {name, value} = e.target;
     setFormData(data => ({...data, [name] : value}))
   }
 
 
+  // handles data from the form and sends the information to backend //
+  // If registred successfully, redirects to tracks page else throws error //
   async function handleSubmit(e) {
     e.preventDefault();
     

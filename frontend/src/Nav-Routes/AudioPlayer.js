@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'; // Import the specific icons
 import "./AudioPlayer.css";
 
+// Renders the player component that enables user to listen to music
 const AudioPlayer = ({playingTrack}) => {
   
   const [isPlaying, setIsPlaying] = useState(false);
@@ -10,6 +11,7 @@ const AudioPlayer = ({playingTrack}) => {
   const {image, audio} = playingTrack;
   
   
+  // User can play or pause music
   function handlePlayPause() {
     if(isPlaying) {
       audioRef.current.pause();
@@ -18,6 +20,7 @@ const AudioPlayer = ({playingTrack}) => {
     }
     setIsPlaying(!isPlaying);
   }
+
 
 
   return (
