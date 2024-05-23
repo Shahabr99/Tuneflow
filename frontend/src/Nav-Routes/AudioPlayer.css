@@ -39,39 +39,26 @@
 }
 
 .play {
-  width: 100px;
-  height: 50px;
+  color: #000;
   border: none;
-  font-weight: 700;
-  box-shadow: 1px 1px 3px #000;
-  background-color: #000;
-  color: #eee;
 }
 
 .pause {
+  color: #000;
   border: none;
-  width: 100px;
-  height:50px;
-  font-weight: 700;
-  box-shadow: 1px 1px 3px #000;
-  background-color: #000;
-  color: #eee;
 }
 
-.play:active, .pause:active {
-  box-shadow: inset 1px 1px 3px #000;
-  border: none;
-  width: 100px;
-  height: 50px;
-  font-weight: 700;
+.play:active, .pause:active,.add-music:active {
   color: rgb(177, 53, 53);
 }
 
-.play:hover, .pause:hover {
+.play:hover, .pause:hover, .add-music:hover {
   cursor: pointer;
   color: rgb(178, 107, 100);
-  border: none;
-  width: 100px;
-  height: 50px;
-  font-weight: 700;
+  
 }
+
+.add-music {
+  color: #000;
+}
+

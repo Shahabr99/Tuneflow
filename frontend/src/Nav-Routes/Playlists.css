@@ -155,7 +155,7 @@ form {
 }
 
 
-button {
+.cancel-btn, .submit-btn {
   padding: 12px 24px;
   box-shadow: 1px 1px 3px #000;
 }

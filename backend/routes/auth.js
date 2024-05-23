@@ -8,6 +8,7 @@ const userSchema = require("../schemas/newUser.json");
 const loginSchema = require("../schemas/login.json")
 
 
+// 
 router.post("/login", async function(req, res, next) {
   try {
     const validator = jsonSchema.validate(req.body, loginSchema);

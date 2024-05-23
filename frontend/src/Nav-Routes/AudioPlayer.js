@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'; // Import the specific icons
+import { faPlay, faPause, faPlus } from '@fortawesome/free-solid-svg-icons'; // Import the specific icons
+import {Link} from "react-router-dom"
 import "./AudioPlayer.css";
 
 // Renders the player component that enables user to listen to music
@@ -35,6 +36,7 @@ const AudioPlayer = ({playingTrack}) => {
           <button className="pause" onClick={handlePlayPause}>
             <FontAwesomeIcon icon={faPause} size="2x" />
           </button>
+          <Link to={`/playlists`} className="add-music"><FontAwesomeIcon icon={faPlus} size="2x"/></Link>
         </div>
       </div>
     </div>
