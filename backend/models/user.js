@@ -36,11 +36,13 @@ class User {
   static async authenticate(username, password) {
     const result = await db.query(`SELECT username, password, name, lastname FROM users WHERE username = $1`, [username]);
     const user = result.rows[0];
+
     if(!user) {
       throw new NotFoundError(`username ${data.username} does NOT exist!`)
     }
 
     const valid_pwd = await bcrypt.compare(password, user.password);
+    
     if(valid_pwd) {
       // making sure pwd is not exposed
       delete user.password;

@@ -6,7 +6,7 @@ function sqlForPartialUpdate(dataToUpdate, jsToSql=null) {
 
   if(keys.length === 0) throw new BadRequestError("No data!");
 
-  // {name: :"shahab", age:19 }  --> {"name" = $1, "age" = $2}
+ 
   const result = keys.map((col, idx) => 
     `"${jsToSql[col] || col}" = $${idx + 1}`
   );

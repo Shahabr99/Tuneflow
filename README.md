@@ -1,7 +1,3 @@
-Schema:
-![Schema](firstdesign.png)
-
-
 # TuneFlow App
 
 TuneFlow is a music application that allows users to discover, create, and share playlists. It utilizes PostgreSQL for the database, Node.js for the backend, and React for the frontend. This README provides an overview of the application, installation instructions, and other relevant details.

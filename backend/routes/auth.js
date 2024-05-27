@@ -8,19 +8,24 @@ const userSchema = require("../schemas/newUser.json");
 const loginSchema = require("../schemas/login.json")
 
 
-// 
+// Authentication based on username and password and returns token to frontend
 router.post("/login", async function(req, res, next) {
   try {
+    
+    // Checks to see if the data received matches oour JSON schema
     const validator = jsonSchema.validate(req.body, loginSchema);
     
     if(!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
+
     const {username, password} = req.body;
    
+    // checks if the username and password are valid
     const user = await User.authenticate(username, password);
-    console.log(user)
+
+    // Creates a token based on 
     const token = createToken(user);
     
     return res.json({token})
@@ -30,7 +35,7 @@ router.post("/login", async function(req, res, next) {
 });
 
 
-
+// 
 router.post("/register", async function(req, res, next) {
   try{
     const validator = jsonSchema.validate(req.body, userSchema);
@@ -38,11 +43,12 @@ router.post("/register", async function(req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-    console.log(`${req.body}`)
+    
+    // adds the user's information to database
     const user = await User.register({...req.body});
-    console.log(`RECEIVED THIS USER ${user}`);
+    
     const token = createToken(user);
-    console.log(`CREATED TOKEN : ${token}`)
+    
     return res.status(201).json({ token })
   }catch(err) {
     return next(err)

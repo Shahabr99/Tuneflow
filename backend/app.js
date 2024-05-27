@@ -11,7 +11,7 @@ const app = express();
 // CORS to stop malicious request to backend
 app.use(cors());
 
-// To parse the JSON datafromthe request body
+// To parse the JSON data from the request body
 app.use(express.json());
 
 // To parse incoming request bodies
