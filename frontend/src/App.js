@@ -30,7 +30,7 @@ function App() {
       if(token) {
         try {
           const {username} = jwt.decode(token);
-         
+
 
           // Set the token in our API to make requests
           tuneflowApi.token = token;
@@ -167,7 +167,7 @@ function App() {
   async function requestTracks(playlistID) {
     try {
       const tracks = await tuneflowApi.getTracks(playlistID);
-     
+
       return tracks;
     }catch(err){
       return {success: false}

@@ -10,19 +10,18 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 function Navigation({logout}) {
   
   const {currentUser} = useContext(DataContext);
-  const [ menuOpen, setMenuOpen ] = useState(false);
+  const [ menuOpen, setMenuOpen ] = useState(true);
   
 
   function handleClick() {
     setMenuOpen(!menuOpen);
-    console.log(menuOpen)
   }
 
 
   // Renders navbar if a user is logged in
   function loggedIn() {
     return (
-      <ul className={ menuOpen ? "active" : "hidden"}>
+      <ul id={menuOpen ? "hidden-menu" : "active-menu"}>
         <li>
           <NavLink to="/tracks">
             Tracks
@@ -48,7 +47,7 @@ function Navigation({logout}) {
   // renders a different navbar when user logs out
   function loggedOut() {
     return (
-      <ul className={ menuOpen ? "active" : "hidden"}>
+      <ul id={ menuOpen ? "hidden-menu" : "active-menu"}>
         <div className="bx">
           <FontAwesomeIcon icon={faBars} size="2x"/>
         </div>
@@ -75,7 +74,7 @@ function Navigation({logout}) {
         className= "active-icon"
         icon={faBars} 
         size="2xl" 
-        style={{color: "#eff0f0", display: !menuOpen ? "block": "none"}}
+        style={{color: "#eff0f0", display: menuOpen ? "block": "none"}}
         onClick={() => handleClick()}
       />
 
@@ -83,7 +82,7 @@ function Navigation({logout}) {
         className= "close-icon"
         icon={faX} 
         size="2xl" 
-        style={{color: "#eff0f0", display: menuOpen ? "block": "none"}} 
+        style={{color: "#eff0f0", display: !menuOpen ? "block": "none"}} 
         onClick={() => handleClick()} 
       />
       

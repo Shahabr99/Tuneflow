@@ -92,7 +92,7 @@ function Playlists() {
         setFailed(true);
         return
       }else{
-        navigate(`/${id}/playlist-tracks`);
+        navigate(`/playlists/${id}/tracks`);
       } 
       
     } catch(err) {
@@ -103,7 +103,8 @@ function Playlists() {
 
 
   function navigateToTracks(id) {
-    navigate(`/${id}/playlist-tracks`)
+    console.log(id)
+    navigate(`/playlists/${id}/tracks`)
   }
 
 
@@ -195,13 +196,13 @@ function Playlists() {
                   <div className='edit'>
                     <FontAwesomeIcon icon={faPen} />
                   </div>
-                  <Link className="tracks" to={`/${playlist.id}/playlist-tracks`}>
+                  <Link className="tracks" to={`/playlists/${playlist.id}/tracks`}>
                     <FontAwesomeIcon icon={faMusic} />
                   </Link>
                 </div>
                 <div className="playlist-img" style={{backgroundImage:`url(${playlist?.image || ""})`}}></div>
                 <div>
-                  <h4>{`${playlist.name}`}</h4>
+                  <h3>{`${playlist.name}`}</h3>
                 </div>
               </div>
             ))

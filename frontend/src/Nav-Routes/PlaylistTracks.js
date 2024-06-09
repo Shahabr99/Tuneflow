@@ -8,16 +8,15 @@ function PlaylistTracks() {
   const [playingTrack, setPlayingTrack] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const { requestTracks } = useContext(DataContext);
-  const { playlistid } = useParams();
+  const { playlistId } = useParams();
 
 
   // When component mounts, gets the tracks of a playlist from backend.
   useEffect(() => {
     async function getPlaylistTracks() {
       try {
-        // 
-        const result = await requestTracks(playlistid);
-       
+        const result = await requestTracks(playlistId);
+
         if (result) {
           setPlaylistTracks(result);
         }
@@ -27,7 +26,7 @@ function PlaylistTracks() {
     }
 
     getPlaylistTracks();
-  }, [playlistid, requestTracks]);
+  }, [playlistId, requestTracks]);
 
 
   
@@ -40,8 +39,15 @@ function PlaylistTracks() {
 
   return (
     <div className="main-cards">
-      {playlistTracks.length === 0 ? <div><p>No tracks are available in the playlist</p></div> : ""}
-      {playlistTracks.map((track) => (
+      {playlistTracks.length === 0 ? 
+        <div className="err">
+          <p>No tracks are available in the playlist</p>
+          <a href="/playlists">Back</a>
+        </div> : ""
+      }
+
+      {playlistTracks.map((track) => 
+      (
         <div
           key={track.track_id}
           className="playlist-track-card"

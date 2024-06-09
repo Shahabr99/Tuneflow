@@ -17,7 +17,7 @@ function MainRoutes() {
       <Routes>
         
         <Route exact path="/" element={<Homepage />} />
-     
+
         <Route exact path="/login" element={<LoginForm />} />
           
         <Route exact path="/register" element={<RegistrationForm />} />
@@ -30,10 +30,10 @@ function MainRoutes() {
       
         <Route path="/:trackID/playlists" element={<Playlists />} />
 
-        <Route path="/:playlistid/addTrack" element={<PlaylistTracks />} />
+        <Route path="/playlists/:playlistId/add-track" element={<PlaylistTracks />} />
         
-        <Route path="/:playlistid/playlist-tracks" element={<PlaylistTracks />} />
-       
+        <Route path="/playlists/:playlistId/tracks" element={<PlaylistTracks />} />
+
         {/* Any route except the defined ones above, navigates the user to homepage */}
         <Route path="*" element={<Navigate to="/" />} />  
 

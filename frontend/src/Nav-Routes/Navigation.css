@@ -7,9 +7,13 @@
   z-index: 1;
 }
 
-ul {
+.navbar ul {
   display: flex;
   gap: 18px;
+}
+
+.navbar ul li {
+  list-style-type: none;
 }
 
 ul li a{
@@ -42,21 +46,8 @@ ul li a:hover {
   left: 9999999px;
 }
 
-/* .active {
-  visibility: visible;
-  opacity: 1;
-}
 
-.hidden {
-  display: none;
-  visibility: hidden;
-  opacity: 0;
-}  */
-
-
-
-
-@media screen and (max-width:1000px){
+@media screen and (max-width:1000px) {
   .navbar {
     position: relative;
   }
@@ -66,9 +57,11 @@ ul li a:hover {
     gap: 0;
     position: absolute;
     top: 80%;
-    left: 78%;
+    left: 77%;
     align-items: center;
     justify-items: center;
+    visibility: hidden;
+    opacity: 0;
   }
 
   .navbar ul li {
@@ -90,7 +83,7 @@ ul li a:hover {
   .active-icon {
     visibility: visible;
     opacity: 1;
-    left: 94%;
+    left: 95%;
     top: 35%;
     cursor: pointer;
   }
@@ -99,7 +92,85 @@ ul li a:hover {
     visibility: visible;
     opacity: 1;
     top: 35%;
-    left: 94%;
+    left: 95%;
     cursor: pointer;
+  }
+
+  #active-menu {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  #hidden-menu {
+    visibility: hidden;
+    opacity: 0;
+  } 
+}
+
+@media screen and (max-width:790px) {
+  .navbar ul {
+    top: 80%;
+    left: 72%;
+  }
+
+  .active-icon, .close-icon {
+    left: 94%;
+  }
+}
+
+
+@media screen and (max-width:700px) {
+  .navbar ul {
+    top: 80%;
+    left: 70%;
+  }
+
+  .active-icon, .close-icon {
+    left: 94%;
+  }
+}
+
+@media screen and (max-width:620px) {
+  .navbar ul {
+    top: 80%;
+    left: 67%;
+  }
+
+  .active-icon, .close-icon {
+    left: 93%;
+  }
+}
+
+
+@media screen and (max-width:550px) {
+  .navbar ul {
+    top: 80%;
+    left: 62%;
+  }
+
+  .active-icon, .close-icon {
+    left: 93%;
+  }
+}
+
+@media screen and (max-width:480px) {
+  .navbar ul {
+    top: 80%;
+    left: 58%;
+  }
+
+  .active-icon, .close-icon {
+    left: 91%;
+  }
+}
+
+@media screen and (max-width:430px) {
+  .navbar ul {
+    top: 80%;
+    left: 55%;
+  }
+
+  .active-icon, .close-icon {
+    left: 90%;
   }
 }
