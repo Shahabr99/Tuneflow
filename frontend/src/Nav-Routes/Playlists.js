@@ -220,7 +220,7 @@ function Playlists() {
                 <input type="text" id="image-url" name="image" value={formData.image} onChange={handleChange} />
               </div>
               <div className='btns'>
-                <button className = "submit-btn" type='submit' onClick={handleSubmit} className='submit-btn' >Submit</button>
+                <button className = "submit-btn" type='submit' onClick={handleSubmit} >Submit</button>
                 <button className='cancel-btn' onClick={handleCancel}>Cancel</button>
               </div>
             </form>
