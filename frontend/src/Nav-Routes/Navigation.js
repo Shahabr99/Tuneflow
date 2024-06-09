@@ -22,7 +22,7 @@ function Navigation({logout}) {
   // Renders navbar if a user is logged in
   function loggedIn() {
     return (
-      <ul className={!menuOpen ? "active" : "hidden"}>
+      <ul className={ menuOpen ? "active" : "hidden"}>
         <li>
           <NavLink to="/tracks">
             Tracks
@@ -48,7 +48,7 @@ function Navigation({logout}) {
   // renders a different navbar when user logs out
   function loggedOut() {
     return (
-      <ul className={!menuOpen ? "active" : "hidden"}>
+      <ul className={ menuOpen ? "active" : "hidden"}>
         <div className="bx">
           <FontAwesomeIcon icon={faBars} size="2x"/>
         </div>

@@ -78,6 +78,7 @@ ul li a:hover {
     width: 100%;
     padding: 12px;
     text-align: center;
+    cursor: pointer;
   }
 
   .navbar ul a {
@@ -87,7 +88,6 @@ ul li a:hover {
   }
 
   .active-icon {
-    display: inline-block;
     visibility: visible;
     opacity: 1;
     left: 94%;
@@ -96,7 +96,6 @@ ul li a:hover {
   }
 
   .close-icon {
-    display: inline-block;
     visibility: visible;
     opacity: 1;
     top: 35%;
