@@ -58,7 +58,7 @@ function App() {
   useEffect(function getData() {
     async function getSongs() {
       try{
-        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=16&imagesize=300&boost=downloads_month`);
+        const tracksData = await axios.get(`https://api.jamendo.com/v3.0/tracks/?client_id=c85b065b&format=jsonpretty&limit=26&imagesize=300&boost=downloads_month`);
         setTracks(tracksData.data.results);
         
       }catch(err) {

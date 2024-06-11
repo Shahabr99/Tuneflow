@@ -23,6 +23,7 @@ function Tracks() {
 
 
   return(
+    <>
       <div className="container">
         {tracks.map((track) => (
           <div  className="card" key={track.id} onClick={(e) => handleClick(e, track.id)} >
@@ -35,6 +36,7 @@ function Tracks() {
           </div>
         ))}
       </div>
+    </>
     );
 };
 
