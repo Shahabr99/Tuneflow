@@ -150,12 +150,12 @@ form {
   flex-direction: column;
   gap: 36px;
   z-index: 11;
-  width: 350px;
-  height: 400px;
+  width: 450px;
+  height: 500px;
   padding: 20px;
   justify-content: center;
   position: absolute;
-  background: #bdba71;
+  background: #bb6743;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -166,10 +166,11 @@ form {
 .fields {
   display: flex;
   gap: 12px;
+  flex-direction: column;
 }
 
 .fields input {
-  width: 100%;
+  width: 85%;
   padding: 10px;
   box-sizing: border-box;
 }
@@ -184,6 +185,12 @@ form {
 .cancel-btn, .submit-btn {
   padding: 12px 24px;
   box-shadow: 1px 1px 3px #000;
+  background-color: rgb(28, 25, 25);
+  color: #eee;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid #000;
 }
 
 .submit-btn:hover {

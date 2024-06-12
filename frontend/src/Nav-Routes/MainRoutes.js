@@ -7,6 +7,7 @@ import Tracks from "./Tracks";
 import PlayTrack from "./PlayTrack";
 import Playlists from "./Playlists";
 import PlaylistTracks from "./PlaylistTracks";
+import Profile from "./Profile";
 
 // Renders the component based on the route
 function MainRoutes() {
@@ -21,6 +22,8 @@ function MainRoutes() {
         <Route exact path="/login" element={<LoginForm />} />
           
         <Route exact path="/register" element={<RegistrationForm />} />
+
+        <Route exact path="/profile" element={<Profile />} />
 
         <Route exact path="/tracks" element={<Tracks />}  />
     
