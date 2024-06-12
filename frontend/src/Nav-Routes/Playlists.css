@@ -1,6 +1,7 @@
 .main-playlist {
   height: 100vh;
   width: 100%;
+  
 }
 
 .dark {
@@ -26,6 +27,31 @@
   position: absolute;
   left: 97%;
   top: 3%;
+}
+
+.no-playlist-err {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #000;
+  width: 400px;
+  height: 100px;
+  padding: 12px;
+  align-content: center;
+  text-align: center;
+  background-color: #a12f57;
+  color: #eee;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 1px 2px 2px #000;
+}
+
+.close-mark {
+  position: absolute;
+  top: 10%;
+  left: 92%;
+  cursor: pointer;
 }
 
 .playlist-btn:hover {

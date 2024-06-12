@@ -101,6 +101,11 @@ function Playlists() {
   }
 
 
+  function closeWindow() {
+    setIsRendered(!isRendered)
+  }
+
+
 
   function navigateToTracks(id) {
     console.log(id)
@@ -158,7 +163,10 @@ function Playlists() {
                 <FontAwesomeIcon icon={faPlus} size='2x' />
               </div>
               {playlists.length === 0 ? (
-                <div>"Please create new playlist"</div>
+                <div className='no-playlist-err'>
+                  <p>Please create a new playlist. Close this window to create one.</p>
+                  <FontAwesomeIcon className='close-mark' icon={faXmark} size='lg' onClick={() => closeWindow()} />
+                </div>
               ) : (
                 playlists.map(playlist => (
                   

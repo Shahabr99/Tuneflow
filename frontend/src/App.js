@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import useLocalStorage from "./hooks/useLocalStorage";
 import tuneflowApi from "./api/api";
 import jwt from "jsonwebtoken";
-import {BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Navigation from "./Nav-Routes/Navigation";
 import MainRoutes from "./Nav-Routes/MainRoutes";
 import DataContext from "./helpers/DataContext";

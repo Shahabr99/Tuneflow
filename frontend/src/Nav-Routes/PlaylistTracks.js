@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import DataContext from "../helpers/DataContext";
 import "./PlaylistTracks.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 function PlaylistTracks() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
@@ -41,8 +43,8 @@ function PlaylistTracks() {
     <div className="main-cards">
       {playlistTracks.length === 0 ? 
         <div className="err">
-          <p>No tracks are available in the playlist</p>
-          <a href="/playlists">Back</a>
+          <p>No tracks are available in the playlist. Please visit the tracks page by clicking <a className="visit-tracks" href="/tracks">here 🎵</a>.</p>
+          <FontAwesomeIcon className='close-mark' icon={faXmark} size='lg'  />
         </div> : ""
       }
 

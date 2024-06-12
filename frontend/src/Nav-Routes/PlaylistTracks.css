@@ -45,7 +45,27 @@
 }
 
 .err {
-  background-color: #aaa;
+  background-color: #aa4b4b;
   box-shadow: 1px 2px 2px #000;
   color: #000;
+  padding: 24px;
+  text-transform: uppercase;
+  color: #eee;
+  font-weight: 600;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  transform: translate(-50%, -50%);
+}
+
+.close-mark {
+  position: absolute;
+  top: 10%;
+  left: 95%;
+  cursor: pointer;
+}
+
+.visit-tracks {
+  text-decoration: none;
+  cursor: pointer;
 }
